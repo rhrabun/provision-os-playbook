@@ -33,13 +33,5 @@ To execute this playbook on freshly installed system, perform next steps:
 `ansible-playbook playbook.yml {-l alias OPTIONAL} --ask-become-pass`
 
 
----
-
 ## ToDo's:
-* Add installation of 
-    * golang
-    * kubectl
-
-* Break down roles to separate package-related files.
-For example: Role `common`, file `pip.yml` - upgrades pip and installs required pip packages
-Role `common`, file `main.yml` imports `pip.yml` file
+* Add support for `pacman` manager
