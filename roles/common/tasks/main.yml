@@ -1,0 +1,19 @@
+- name: Create temporary folder
+  file:
+    path: "~/ansible_temp"
+    state: directory
+
+- name: Configure Nano editor
+  include_tasks: nano.yml
+
+- name: Install and configure Nano editor
+  include_tasks: tilix.yml
+
+
+- name: Install pip and Python modules
+  include_tasks: pip.yml
+
+- name: Delete temporary folder
+  file:
+    path: "~/ansible_temp"
+    state: absent

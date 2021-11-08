@@ -1,0 +1,21 @@
+- name: Install Docker & kubectl
+  become: yes
+  apt:
+    name:
+      - docker
+      - docker.io
+
+- name: Create Docker group
+  become: yes
+  group:
+    name: docker
+    state: present
+
+- name: Add user to Docker group
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    groups:
+      - docker
+    append: yes
+
