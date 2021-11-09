@@ -1,0 +1,11 @@
+- name: Update repositories cache and upgrade packages
+  become: yes
+  pacman:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install packages and utilities
+  become: yes
+  pacman:
+    name:  "{{ packages_to_install }}"
+    state: latest
