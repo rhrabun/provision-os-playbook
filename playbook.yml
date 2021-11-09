@@ -2,7 +2,17 @@
   hosts: all
   vars_files:
     - vars/common_vars.yml
+  pre_tasks:
+    - name: Create temporary folder
+      file:
+        path: "~/ansible_temp"
+        state: directory
   roles:
     - { role: apt, when: ansible_pkg_mgr|lower == 'apt' }
     - { role: pacman, when: ansible_pkg_mgr|lower == 'pacman' }
     - common
+  post_tasks:
+    - name: Delete temporary folder
+      file:
+        path: "~/ansible_temp"
+        state: absent

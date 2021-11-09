@@ -8,11 +8,6 @@
 - name: Setup Docker
   include_tasks: docker.yml
 
-- name: Create temporary folder
-  file:
-    path: "~/ansible_temp"
-    state: directory
-
 - name: Configure Nano editor
   include_tasks: nano.yml
 
@@ -21,8 +16,3 @@
 
 - name: Configure ZSH
   include_tasks: zsh.yml
-
-- name: Delete temporary folder
-  file:
-    path: "~/ansible_temp"
-    state: absent
