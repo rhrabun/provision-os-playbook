@@ -37,3 +37,4 @@ To execute this playbook on freshly installed system, perform next steps:
 * Add support for `pacman` manager
 * Test and when confirmed that everything is working, freeze versions to be able to execute on any system 
 * Find a way to make Tilix default terminal for Manjaro
+* Add Terraform installation
