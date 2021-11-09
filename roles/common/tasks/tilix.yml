@@ -3,6 +3,7 @@
   alternatives:
     name: x-terminal-emulator
     path: /usr/bin/tilix.wrapper
+  when: ansible_pkg_mgr|lower == 'apt'
 
 - name: Copy my custom Tilix config file
   copy:
