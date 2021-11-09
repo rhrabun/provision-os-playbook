@@ -1,14 +1,11 @@
-- name: Update repos
-  become: yes
-  apt:
-    update_cache: yes
-
-- name: Upgrade system
+- name: Update repositories cache and upgrade packages
   become: yes
   apt:
     name: "*"
     state: latest
-    force: yes
+    # force: yes # Fixes the "Packages were downgraded and -y was used without --allow-downgrades" error
+    # allow_downgrades: yes
+    update_cache: yes
 
 - name: Install packages and utilities
   become: yes
@@ -23,12 +20,3 @@
     autoclean: yes
     autoremove: yes
 
-- name: Install and configure ZSH
-  include_tasks: zsh.yml
-
-- name: Install VSCode Settings Sync extension
-  command: code --install-extension shan.code-settings-sync
-  changed_when: false
-
-- name: Install Docker and Kubectl
-  include_tasks: containers.yml
