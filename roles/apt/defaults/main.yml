@@ -1,0 +1,8 @@
+apt_packages:
+  - python3-pip
+  - openssh-server
+  - docker
+  - docker.io
+  - apt-transport-https
+  - gnupg-agent
+  - software-properties-common
