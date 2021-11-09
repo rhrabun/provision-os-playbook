@@ -35,3 +35,5 @@ To execute this playbook on freshly installed system, perform next steps:
 
 ## ToDo's:
 * Add support for `pacman` manager
+* Test and when confirmed that everything is working, freeze versions to be able to execute on any system 
+* Find a way to make Tilix default terminal for Manjaro
