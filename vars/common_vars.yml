@@ -3,7 +3,7 @@ packages_to_install:
   - chromium
   - code
   - tilix
-  - plank
+  - zsh
   # Python-related
   - python3-pip
   # General utilities
@@ -20,6 +20,8 @@ packages_to_install:
   - ca-certificates
   - gnupg-agent
   - software-properties-common
+  - docker
+  - docker.io
 
 pymodules_to_install:
   - virtualenv

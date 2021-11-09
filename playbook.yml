@@ -4,4 +4,5 @@
     - vars/common_vars.yml
   roles:
     - { role: apt, when: ansible_pkg_mgr|lower == 'apt' }
+    - { role: pacman, when: ansible_pkg_mgr|lower == 'pacman' }
     - common

@@ -1,9 +1,3 @@
-- name: Install Tilix
-  become: yes
-  apt:
-    name: tilix
-    state: present
-
 - name: Set Tilix as default terminal
   become: yes
   community.general.alternatives:

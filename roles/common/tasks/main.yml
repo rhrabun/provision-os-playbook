@@ -1,3 +1,13 @@
+- name: Install pip and Python modules
+  include_tasks: pip.yml
+
+- name: Install VSCode Settings Sync extension
+  command: code --install-extension shan.code-settings-sync
+  changed_when: false
+
+- name: Setup Docker
+  include_tasks: docker.yml
+
 - name: Create temporary folder
   file:
     path: "~/ansible_temp"
@@ -6,12 +16,11 @@
 - name: Configure Nano editor
   include_tasks: nano.yml
 
-- name: Install and configure Nano editor
+- name: Configure Tilix
   include_tasks: tilix.yml
 
-
-- name: Install pip and Python modules
-  include_tasks: pip.yml
+- name: Configure ZSH
+  include_tasks: zsh.yml
 
 - name: Delete temporary folder
   file:

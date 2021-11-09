@@ -1,9 +1,3 @@
-- name: Install ZSH
-  become: yes
-  apt:
-    name: 'zsh'
-    state: latest
-
 - name: Clone Oh-My-ZSH repository
   git:
     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
