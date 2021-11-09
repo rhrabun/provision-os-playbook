@@ -1,6 +1,6 @@
 - name: Set Tilix as default terminal
   become: yes
-  community.general.alternatives:
+  alternatives:
     name: x-terminal-emulator
     path: /usr/bin/tilix.wrapper
 
