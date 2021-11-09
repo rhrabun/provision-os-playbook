@@ -13,6 +13,12 @@
     name:  "{{ packages_to_install }}"
     state: latest
 
+- name: Install apt-only packages and utilities
+  become: yes
+  apt:
+    name:  "{{ apt_packages }}"
+    state: latest
+
 - name: Clean redundant packages and dependencies
   become: yes
   apt:

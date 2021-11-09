@@ -4,8 +4,14 @@
     update_cache: yes
     upgrade: yes
 
-- name: Install packages and utilities
+- name: Install common packages and utilities
   become: yes
   pacman:
     name:  "{{ packages_to_install }}"
+    state: latest
+
+- name: Install pacman-only packages and utilities
+  become: yes
+  pacman:
+    name:  "{{ pacman_packages }}"
     state: latest

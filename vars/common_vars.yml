@@ -4,8 +4,6 @@ packages_to_install:
   - code
   - tilix
   - zsh
-  # Python-related
-  - python3-pip
   # General utilities
   - nano
   - curl
@@ -14,14 +12,6 @@ packages_to_install:
   - git
   - unzip
   - bash-completion
-  - openssh-server
-  # Docker
-  - apt-transport-https
-  - ca-certificates
-  - gnupg-agent
-  - software-properties-common
-  - docker
-  - docker.io
 
 pymodules_to_install:
   - virtualenv
