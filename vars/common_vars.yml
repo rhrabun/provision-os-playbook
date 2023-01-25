@@ -13,6 +13,7 @@ packages_to_install:
   - unzip
   - bash-completion
   - openssh-server
+  - dconf-cli
   # Docker
   - apt-transport-https
   - ca-certificates
