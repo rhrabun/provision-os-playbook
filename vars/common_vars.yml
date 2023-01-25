@@ -1,7 +1,5 @@
 packages_to_install:
   # GUI
-  - chromium
-  - code
   - tilix
   - plank
   # Python-related
