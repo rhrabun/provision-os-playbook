@@ -23,6 +23,9 @@
     autoclean: yes
     autoremove: yes
 
+- name: Install VSCode
+  include_tasks: vscode.yml
+
 - name: Install and configure ZSH
   include_tasks: zsh.yml
 
