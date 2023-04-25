@@ -5,5 +5,5 @@
     mode: 440
 
 - name: Install VSCode
-  ansible.builtin.apt:
+  ansible.builtin.ansible.builtin.apt:
     deb: ~/Downloads/vscode.deb
