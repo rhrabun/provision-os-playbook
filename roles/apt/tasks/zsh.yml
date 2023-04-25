@@ -1,5 +1,5 @@
 - name: Install ZSH
-  become: yes
+  become: true
   apt:
     name: 'zsh'
     state: latest
@@ -37,7 +37,7 @@
     mode: '0600'
 
 - name: Make ZSH defaul shell
-  become: yes
+  become: true
   user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh

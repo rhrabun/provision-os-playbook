@@ -34,4 +34,5 @@ To execute this playbook on freshly installed system, perform next steps:
 
 
 ## ToDo's:
-* Add support for `pacman` manager
+* Add SSH keys creation for GH
+* VSCode download deb file and install?
