@@ -1,6 +1,6 @@
 - name: Install Tilix
   become: true
-  apt:
+  ansible.builtin.apt:
     name: tilix
     state: present
 
@@ -11,12 +11,12 @@
     path: /usr/bin/tilix.wrapper
 
 - name: Copy my custom Tilix config file
-  copy:
+  ansible.builtin.copy:
     src: '{{ inventory_dir }}/config_files/tilix.dconf'
     dest: '~/ansible_temp/tilix.dconf'
-    remote_src: no
+    remote_src: false
 
 - name: Load Tilix configuration via dconf
-  shell: dconf load /com/gexperts/Tilix/ < tilix.dconf
+  ansible.builtin.shell: dconf load /com/gexperts/Tilix/ < tilix.dconf
   args:
     chdir: '~/ansible_temp/'
