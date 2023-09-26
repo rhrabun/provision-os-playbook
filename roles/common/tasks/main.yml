@@ -1,9 +1,3 @@
-- name: Generate SSH keys for GitHub
-  community.crypto.openssh_keypair:
-    path: ~/.ssh/github_key
-    type: rsa
-    regenerate: never
-
 - name: Create temporary folder
   ansible.builtin.file:
     path: "~/ansible_temp"
