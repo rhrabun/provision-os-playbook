@@ -29,7 +29,7 @@
 - name: Copy my custom ZSH aliases file
   ansible.builtin.copy:
     src: '{{ inventory_dir }}/config_files/aliases.zsh'
-    dest: '~/.oh-my-zsh/custom'
+    dest: '~/.oh-my-zsh/custom/aliases.zsh'
     remote_src: false
     mode: '664'
 
