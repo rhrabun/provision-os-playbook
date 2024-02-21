@@ -90,6 +90,8 @@ plugins=(
   httpie
   ansible
   docker
+  kubectl
+  helm
   aws
   #python
   python
@@ -98,7 +100,6 @@ plugins=(
   # node
   node
   npm
-  nvm
   # Golang
   golang
 )
@@ -130,8 +131,6 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias activate="source venv/bin/activate"
-alias htop="htop --tree"
 
 # For Tilix to open multiple tabs in same directory
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
@@ -139,7 +138,11 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 # Add Golang to PATH
-export PATH=$PATH:/usr/local/go/bin:~/.local/bin
+export PATH=$PATH:/usr/local/go/bin:/home/roman/go/bin:~/.local/bin
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
