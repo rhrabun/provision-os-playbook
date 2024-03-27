@@ -2,9 +2,8 @@
 alias htop="htop --tree"
 alias sysupgrade="sudo apt clean && sudo apt update && sudo apt upgrade && sudo apt full-upgrade && sudo apt autoremove && sudo apt autoclean"
 
-
 # Python
-alias activate="source venv/bin/activate"
+alias activate="source .venv/bin/activate"
 
 
 # Terraform
