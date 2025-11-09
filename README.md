@@ -6,32 +6,32 @@ Ansible playbook, which sets up freshly installed OS
 # How to execute locally:
 
 ### Using Makefile:
-1. `make install-requirements`
-2. Create the `hosts.yml` file, providing username instead of a placeholder (`cp hosts_example.yml hosts.yml`)
-3. `make run-ansible`
+1. Create the `hosts.yml` file, providing username instead of a placeholder (`cp hosts_example.yml hosts.yml`)
+2. `make run-ansible`
 
 ### Manually:
 To execute this playbook on freshly installed system, perform next steps:
-1. Ensure you have `git` and `python3` packages installed
-2. Install `pip3` if not installed<br/>
-`sudo apt install python3-pip`
 
-3. Install ansible module <br/>
+1. Ensure you have `git` and `python3` packages installed
+
+2. Install ansible <br/>
+`brew install ansible`
+or
 `python3 -m pip install ansible --user`
 
-4. Check if everything works (included path to executable in case it's not added to PATH yet) <br/>
+3. Check if everything works (included path to executable in case it's not added to PATH yet) <br/>
 `~/.local/bin/ansible --version` 
 
-5. Clone playbook repo and `cd` there <br/>
+4. Clone playbook repo and `cd` there <br/>
 `git clone https://github.com/rhrabun/provision-os-playbook.git && cd provision-os-playbook`
 
-6. Create the `hosts.yml` file, providing username instead of a placeholder <br/>
+5. Create the `hosts.yml` file, providing username instead of a placeholder <br/>
 `cp hosts_example.yml hosts.yml`
 
-7. Dry-run execution <br/>
+6. Dry-run execution <br/>
 `~/.local/bin/ansible-playbook playbook.yml --check`
 
-8. Run execution <br/>
+7. Run execution <br/>
 `~/.local/bin/ansible-playbook playbook.yml --ask-become-pass`
 
 
