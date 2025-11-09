@@ -3,5 +3,9 @@
   gather_facts: true
   roles:
     # - print_facts
-    - packages
-    - terminal
+
+    - role: packages
+      tags: packages
+      
+    - role: terminal
+      tags: terminal
