@@ -11,9 +11,5 @@ utils:
   - htop
   - git
   - vim
-
-pymodules_to_install:
-  - awscli
   - httpie
-  - ansible
-  - tldr
+  - tlrc

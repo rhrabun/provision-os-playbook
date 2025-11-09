@@ -3,8 +3,8 @@
 #     path: "~/ansible_temp"
 #     state: directory
 
-- name: Install pip and Python modules
-  ansible.builtin.include_tasks: pip.yml
+# - name: Install pip and Python modules
+#   ansible.builtin.include_tasks: pip.yml
 
 # - name: Delete temporary folder
 #   ansible.builtin.file:

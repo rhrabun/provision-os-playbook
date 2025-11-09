@@ -1,9 +1,9 @@
-- name: Update pip
-  ansible.builtin.pip:
-    name: pip
-    state: latest
+# - name: Update pip
+#   ansible.builtin.pip:
+#     name: pip
+#     state: latest
 
-- name: Install Python modules
-  ansible.builtin.pip:
-    name: "{{ pymodules_to_install }}"
-    extra_args: --user
+# - name: Install Python modules
+#   ansible.builtin.pip:
+#     name: "{{ pymodules_to_install }}"
+#     extra_args: --user
