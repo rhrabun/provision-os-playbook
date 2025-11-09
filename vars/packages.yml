@@ -1,0 +1,17 @@
+personal_packages:
+  # - zen
+
+development_packages:
+  - ghostty
+  - zed
+  # utils
+  - stow
+  - htop
+  - git
+  - vim
+
+pymodules_to_install:
+  - awscli
+  - httpie
+  - ansible
+  - tldr
