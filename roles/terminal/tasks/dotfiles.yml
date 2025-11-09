@@ -1,0 +1,11 @@
+# Clone dotfiles
+- name: Clone dotfiles repo
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ ansible_env.HOME }}/.dotfiles"
+    version: "{{ dotfiles_repo_branch }}"
+    clone: yes
+    update: yes
+    # force: no
+
+# Run Stow

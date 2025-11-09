@@ -1,15 +1,12 @@
-- name: Create temporary folder
-  ansible.builtin.file:
-    path: "~/ansible_temp"
-    state: directory
-
-- name: Install and configure Tilix terminal
-  ansible.builtin.include_tasks: tilix.yml
+# - name: Create temporary folder
+#   ansible.builtin.file:
+#     path: "~/ansible_temp"
+#     state: directory
 
 - name: Install pip and Python modules
   ansible.builtin.include_tasks: pip.yml
 
-- name: Delete temporary folder
-  ansible.builtin.file:
-    path: "~/ansible_temp"
-    state: absent
+# - name: Delete temporary folder
+#   ansible.builtin.file:
+#     path: "~/ansible_temp"
+#     state: absent

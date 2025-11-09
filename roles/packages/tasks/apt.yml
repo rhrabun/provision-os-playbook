@@ -22,12 +22,3 @@
     update_cache: true
     autoclean: true
     autoremove: true
-
-- name: Install VSCode
-  ansible.builtin.include_tasks: vscode.yml
-
-- name: Install and configure ZSH
-  ansible.builtin.include_tasks: zsh.yml
-
-- name: Install Docker and Kubectl
-  ansible.builtin.include_tasks: containers.yml

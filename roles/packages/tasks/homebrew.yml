@@ -1,0 +1,7 @@
+- name: Update Brew
+  community.general.homebrew:
+    update_homebrew: true
+
+- name: Update Brew packages
+  community.general.homebrew:
+    upgrade_all: true

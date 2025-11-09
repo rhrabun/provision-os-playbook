@@ -1,9 +1,3 @@
-- name: Install ZSH
-  become: true
-  ansible.builtin.apt:
-    name: 'zsh'
-    state: latest
-
 - name: Clone Oh-My-ZSH repository
   ansible.builtin.git:
     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
@@ -19,32 +13,18 @@
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: '~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
-- name: Copy my custom ZSH config file
-  ansible.builtin.copy:
-    src: '{{ inventory_dir }}/config_files/.zshrc'
-    dest: '~/.zshrc'
-    remote_src: false
-    mode: '664'
-
-- name: Copy my custom ZSH aliases file
-  ansible.builtin.copy:
-    src: '{{ inventory_dir }}/config_files/aliases.zsh'
-    dest: '~/.oh-my-zsh/custom/aliases.zsh'
-    remote_src: false
-    mode: '664'
+# - name: Copy my custom ZSH aliases file
+#   ansible.builtin.copy:
+#     src: '{{ inventory_dir }}/config_files/aliases.zsh'
+#     dest: '~/.oh-my-zsh/custom/aliases.zsh'
+#     remote_src: false
+#     mode: '664'
 
 - name: Install powerlevel10k theme
   ansible.builtin.git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
     dest: '~/.oh-my-zsh/custom/themes/powerlevel10k'
     depth: 1
-
-- name: Copy ZSH theme (powerlevel10k) config file
-  ansible.builtin.copy:
-    src: '{{ inventory_dir }}/config_files/.p10k.zsh'
-    dest: '~/.p10k.zsh'
-    remote_src: false
-    mode: '664'
 
 - name: Create ZSH cache directory
   ansible.builtin.file:
@@ -59,8 +39,8 @@
     mode: '600'
 
 - name: Make ZSH defaul shell
+  when: ansible_os_family != 'Darwin'
   become: true
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
-
