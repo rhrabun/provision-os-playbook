@@ -1,36 +1,32 @@
-- name: Update repos
+- name: Update package database
   become: true
-  ansible.builtin.apt:
+  community.general.pacman:
     update_cache: true
 
 - name: Upgrade system
   become: true
-  ansible.builtin.apt:
-    name: "*"
-    state: latest
-    force: true
+  community.general.pacman:
+    upgrade: true
 
 - name: Install personal packages
   become: true
-  ansible.builtin.apt:
+  community.general.pacman:
     name: "{{ personal_packages }}"
     state: present
 
 - name: Install development packages
   become: true
-  ansible.builtin.apt:
+  community.general.pacman:
     name: "{{ development_packages }}"
     state: present
 
 - name: Install utils
   become: true
-  ansible.builtin.apt:
+  community.general.pacman:
     name: "{{ utils }}"
     state: present
 
-- name: Clean redundant packages and dependencies
+- name: Remove unneeded dependencies
   become: true
-  ansible.builtin.apt:
-    update_cache: true
-    autoclean: true
+  community.general.pacman:
     autoremove: true

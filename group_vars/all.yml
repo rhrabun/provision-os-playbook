@@ -4,7 +4,9 @@ personal_packages:
 development_packages:
   - ghostty
   - zed
-  # utils
+  - uv
+
+utils:
   - stow
   - htop
   - git
