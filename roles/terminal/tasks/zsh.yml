@@ -1,0 +1,48 @@
+- name: Clone Oh-My-ZSH repository
+  ansible.builtin.git:
+    repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+    dest: '{{ ansible_env.HOME }}/.oh-my-zsh'
+
+- name: Clone ZSH Autosuggestions plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: '{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
+
+- name: Clone ZSH Syntax Highlighting plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: '{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
+
+- name: Install powerlevel10k theme
+  ansible.builtin.git:
+    repo: 'https://github.com/romkatv/powerlevel10k.git'
+    dest: '{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k'
+    depth: 1
+
+- name: Create ZSH cache directory
+  ansible.builtin.file:
+    path: '{{ ansible_env.HOME }}/.cache/zsh'
+    state: directory
+    mode: '775'
+
+- name: Create ZSH history file
+  ansible.builtin.file:
+    path: '{{ ansible_env.HOME }}/.cache/zsh/history'
+    state: touch
+    mode: '600'
+
+- name: Make ZSH defaul shell
+  when: ansible_os_family != 'Darwin'
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+
+- name: Update ZSH and plugins
+  ansible.builtin.shell: |
+    #!/bin/zsh
+    ${{ ansible_env.HOME }}/.oh-my-zsh/tools/upgrade.sh
+  register: omz_upgrade_result
+  changed_when: "'Updated Oh My Zsh' in omz_upgrade_result.stdout"
+  failed_when: "'Err' in omz_upgrade_result.msg"
+    

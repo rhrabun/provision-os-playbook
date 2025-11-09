@@ -1,0 +1,13 @@
+- name: Clone dotfiles repo
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ ansible_env.HOME }}/.dotfiles"
+    version: "{{ dotfiles_repo_branch }}"
+    clone: true
+    update: true
+    # force: no
+
+- name: Run Stow
+  shell: "stow . --dir {{ ansible_env.HOME }}/.dotfiles/ --target {{ ansible_env.HOME }} --verbose=2"
+  register: result
+  changed_when: '"LINK" in result.stderr'

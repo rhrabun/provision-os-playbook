@@ -1,0 +1,19 @@
+- name: Update Brew and packages
+  community.general.homebrew:
+    update_homebrew: true
+    upgrade_all: true
+
+# - name: Install personal packages
+#   community.general.homebrew:
+#     name: "{{ personal_packages }}"
+#     state: present
+
+- name: Install development packages
+  community.general.homebrew:
+    name: "{{ development_packages }}"
+    state: present
+
+- name: Install utils
+  community.general.homebrew:
+    name: "{{ utils }}"
+    state: present

@@ -10,11 +10,23 @@
     state: latest
     force: true
 
-- name: Install packages and utilities
+- name: Install personal packages
   become: true
   ansible.builtin.apt:
-    name: "{{ packages_to_install }}"
-    state: latest
+    name: "{{ personal_packages }}"
+    state: present
+
+- name: Install development packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ development_packages }}"
+    state: present
+
+- name: Install utils
+  become: true
+  ansible.builtin.apt:
+    name: "{{ utils }}"
+    state: present
 
 - name: Clean redundant packages and dependencies
   become: true
@@ -22,12 +34,3 @@
     update_cache: true
     autoclean: true
     autoremove: true
-
-- name: Install VSCode
-  ansible.builtin.include_tasks: vscode.yml
-
-- name: Install and configure ZSH
-  ansible.builtin.include_tasks: zsh.yml
-
-- name: Install Docker and Kubectl
-  ansible.builtin.include_tasks: containers.yml
