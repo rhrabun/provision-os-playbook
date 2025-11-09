@@ -7,7 +7,7 @@ Ansible playbook, which sets up freshly installed OS
 
 ### Using Makefile:
 1. `make install-requirements`
-2. Edit the `hosts.yml` file, providing username instead of a placeholder
+2. Create the `hosts.yml` file, providing username instead of a placeholder (`cp hosts_example.yml hosts.yml`)
 3. `make run-ansible`
 
 ### Manually:
@@ -25,9 +25,13 @@ To execute this playbook on freshly installed system, perform next steps:
 5. Clone playbook repo and `cd` there <br/>
 `git clone https://github.com/rhrabun/provision-os-playbook.git && cd provision-os-playbook`
 
-6. Edit the `hosts.yml` file, providing username instead of a placeholder <br/>
+6. Create the `hosts.yml` file, providing username instead of a placeholder <br/>
+`cp hosts_example.yml hosts.yml`
 
-7. Run execution <br/>
+7. Dry-run execution <br/>
+`~/.local/bin/ansible-playbook playbook.yml --check`
+
+8. Run execution <br/>
 `~/.local/bin/ansible-playbook playbook.yml --ask-become-pass`
 
 
@@ -37,6 +41,3 @@ To execute this playbook on freshly installed system, perform next steps:
 
 * Run playbook
 `ansible-playbook playbook.yml {-l alias OPTIONAL} --ask-become-pass`
-
-
-## ToDo's:
