@@ -13,13 +13,6 @@
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: '{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
-# - name: Copy my custom ZSH aliases file
-#   ansible.builtin.copy:
-#     src: '{{ inventory_dir }}/config_files/aliases.zsh'
-#     dest: '{{ ansible_env.HOME }}/.oh-my-zsh/custom/aliases.zsh'
-#     remote_src: false
-#     mode: '664'
-
 - name: Install powerlevel10k theme
   ansible.builtin.git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
