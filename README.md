@@ -7,7 +7,7 @@ Ansible playbook, which sets up freshly installed OS
 
 ### Using Makefile:
 1. Create the `hosts.yml` file, providing username instead of a placeholder (`cp hosts_example.yml hosts.yml`)
-2. `make run-ansible`
+2. `make run`
 
 ### Manually:
 To execute this playbook on freshly installed system, perform next steps:
