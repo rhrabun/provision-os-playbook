@@ -2,3 +2,5 @@
 
 dotfiles_repo: "https://github.com/rhrabun/dotfiles.git"
 dotfiles_repo_branch: main
+
+jetbrains_font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"

@@ -1,3 +1,30 @@
+- name: Create temporary  directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: temp
+  register: temp_dir
+
+- name: Download font
+  ansible.builtin.get_url:
+    url: "{{ jetbrains_font_url }}"
+    dest: "{{ temp_dir.path }}"
+    mode: '0440'
+  register: font
+
+- name: Unpack font - MacOs
+  when: ansible_os_family == 'Darwin'
+  ansible.builtin.unarchive:
+    src: "{{ font.dest }}"
+    dest: /Library/Fonts
+    remote_src: yes
+
+- name: Unpack font - Linux
+  when: ansible_os_family != 'Darwin'
+  ansible.builtin.unarchive:
+    src: "{{ font.dest }}"
+    dest: /usr/local/share/fonts
+    remote_src: yes
+
 - name: Configure dotfiles
   ansible.builtin.include_tasks: dotfiles.yml
   
