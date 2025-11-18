@@ -16,13 +16,3 @@
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
-
-- name: Run ZSH plugin update
-  ansible.builtin.shell: |
-    #!/bin/zsh
-    zinit self-update && zinit update --all
-  register: zsh_update_result
-  # TODO:
-  # changed_when: "'Updated Oh My Zsh' in omz_upgrade_result.stdout"
-  # failed_when: "'Err' in omz_upgrade_result.msg"
-    
