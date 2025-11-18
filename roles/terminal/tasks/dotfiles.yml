@@ -3,9 +3,10 @@
     repo: "{{ dotfiles_repo }}"
     dest: "{{ ansible_env.HOME }}/.dotfiles"
     version: "{{ dotfiles_repo_branch }}"
+    remote: https
     clone: true
     update: true
-    # force: no
+    force: false
 
 - name: Run Stow
   shell: "stow . --dir {{ ansible_env.HOME }}/.dotfiles/ --target {{ ansible_env.HOME }} --verbose=2"
