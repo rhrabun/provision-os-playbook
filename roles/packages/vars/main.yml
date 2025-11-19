@@ -1,0 +1,47 @@
+# Some may be not available across all distributions
+
+cli_utils:
+  - uv
+  - fd
+  - fzf
+  - git
+  - vim
+  - stow
+  - htop
+  - tlrc
+  - tmux
+  - httpie
+  - zoxide
+
+common_packages:
+  - ghostty
+  - zed
+
+mac_packages:
+  - vlc
+  - flux
+  - stats
+  - alfred
+  - spotify
+  - aldente
+  - calibre
+  - itsycal
+  - telegram
+  - protonvpn
+  - rectangle
+  - bitwarden
+  - oversight
+  - todoist-app
+  - app-cleaner
+  - proton-mail
+  - proton-drive
+  - google-drive
+  - logi-options+
+  - wireshark-app
+  - jordanbaird-ice
+
+mac_taps:
+  - buo/cask-upgrade
+  
+# linux_packages:
+#   - test

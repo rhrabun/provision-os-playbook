@@ -6,5 +6,7 @@
   * dev - development environment
   * user - personal use system
   * core - core utils ?
-- [ ] New packages to install:
-  * Zen
+- [ ] SSH keys:
+  * Encrypt with ansible vault
+  * Store in private repo
+  * Maybe after setting up ssh keys I can clone repos via ssh, not https

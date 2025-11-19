@@ -10,22 +10,16 @@
     state: latest
     force: true
 
-- name: Install personal packages
+- name: Install packages
   become: true
   ansible.builtin.apt:
-    name: "{{ personal_packages }}"
+    name: "{{ linux_packages }}"
     state: present
 
-- name: Install development packages
+- name: Install cli utils
   become: true
   ansible.builtin.apt:
-    name: "{{ development_packages }}"
-    state: present
-
-- name: Install utils
-  become: true
-  ansible.builtin.apt:
-    name: "{{ utils }}"
+    name: "{{ cli_utils }}"
     state: present
 
 - name: Clean redundant packages and dependencies
