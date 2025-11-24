@@ -18,9 +18,9 @@
     name: "{{ mac_taps }}"
     state: present
 
-- name: Update App Store apps
-  community.general.mas:
-    upgrade_all: true
+# - name: Update App Store apps
+#   community.general.mas:
+#     upgrade_all: true
 
 # This task just doesn't work in any way:
 # [ERROR]: Task failed: Module failed: invalid literal for int() with base 10: ''
