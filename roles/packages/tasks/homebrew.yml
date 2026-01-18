@@ -3,29 +3,9 @@
     update_homebrew: true
     upgrade_all: true
 
-- name: Install Brew packages
-  community.general.homebrew_cask:
-    name: "{{ macos_pkgs + common_pkgs }}"
-    state: present
-
-- name: Install cli utils
-  community.general.homebrew:
-    name: "{{ cli_utils + mac_cli_utils }}"
-    state: present
-
-- name: Brew tap
-  community.general.homebrew_tap:
-    name: "{{ mac_taps }}"
-    state: present
-
-# - name: Update App Store apps
-#   community.general.mas:
-#     upgrade_all: true
-
-# This task just doesn't work in any way:
-# [ERROR]: Task failed: Module failed: invalid literal for int() with base 10: ''
-# - name: Install specific apps and also upgrade all others
-#   community.general.mas:
-#     id: "{{ mas_apps|map('int')|list }}"
-#     state: present
-#     upgrade_all: true
+- name: Install Brew packages via Brewfile
+  command: brew bundle install --file Brewfile.base
+  args:
+    chdir: "{{ playbook_dir }}/files/brew"
+  register: brew_bundle
+  failed_when: brew_bundle.rc != 0
