@@ -1,7 +1,6 @@
 # Options
 cask_args appdir: "~/Applications", fontdir: "~/Library/Fonts", require_sha: true
 
-tap "anomalyco/tap"
 tap "buo/cask-upgrade"
 
 # Automate deployment, configuration, and upgrading
@@ -30,11 +29,14 @@ brew "uv"
 brew "vim"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-
 # Menu bar tool to limit maximum charging percentage
 cask "aldente"
+# Allows connection to a computer remotely
+cask "anydesk"
 # Uninstaller and cleaning assistant
 cask "app-cleaner"
+# Display management tool
+cask "betterdisplay"
 # Desktop password and login vault
 cask "bitwarden"
 # E-books management software
@@ -43,18 +45,24 @@ cask "calibre"
 cask "cold-turkey-blocker"
 # Multi-platform client-side cloud file encryption tool
 cask "cryptomator"
+# Desktop client for Ente Auth
+cask "ente-auth"
 # Screen colour temperature controller
 cask "flux-app"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Client for the Google Drive storage service
 cask "google-drive"
+# Keyboard shortcuts for every button on your screen
+cask "homerow"
 # Tool for multi-language users
 cask "input-source-pro"
 # Menu bar calendar
 cask "itsycal"
 # Software for Logitech devices
 cask "logi-options+"
+# Cloud gaming platform
+cask "nvidia-geforce-now"
 # Monitors computer mic and webcam
 cask "oversight"
 # Client for Proton Drive
@@ -84,5 +92,4 @@ mas "Keynote", id: 409183694
 mas "Kindle", id: 302584613
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "rcmd", id: 1596283165
 mas "UpNote", id: 1398373917
