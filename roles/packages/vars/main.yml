@@ -5,8 +5,8 @@ cli_utils:
   - git
   - vim
   - stow
-  - htop
-  - tlrc
+  # - btop
+  # - tlrc (Arch - AUR, apt - ?)
   - tmux
   - httpie
   - zoxide
