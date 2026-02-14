@@ -1,10 +1,10 @@
-# Options
-cask_args appdir: "~/Applications", fontdir: "~/Library/Fonts", require_sha: true
-
 tap "buo/cask-upgrade"
+tap "nikitabobko/tap"
 
 # Automate deployment, configuration, and upgrading
 brew "ansible"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 # Simple, fast and user-friendly alternative to find
@@ -15,8 +15,12 @@ brew "fzf"
 brew "git"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
+# Simple terminal UI for git commands
+brew "lazygit"
 # Mac App Store command-line interface
 brew "mas"
+# Interactive cheatsheet tool for the command-line
+brew "navi"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Official tldr client written in Rust
@@ -29,6 +33,9 @@ brew "uv"
 brew "vim"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace"
 # Menu bar tool to limit maximum charging percentage
 cask "aldente"
 # Allows connection to a computer remotely
@@ -51,6 +58,8 @@ cask "ente-auth"
 cask "flux-app"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Free and open-source image editor
+cask "gimp"
 # Client for the Google Drive storage service
 cask "google-drive"
 # Keyboard shortcuts for every button on your screen

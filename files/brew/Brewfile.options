@@ -1,0 +1,2 @@
+# Options
+cask_args appdir: "~/Applications", fontdir: "~/Library/Fonts", require_sha: true
