@@ -1,0 +1,9 @@
+- name: Download VSCode
+  ansible.builtin.get_url:
+    url: '{{ vscode_url }}'
+    dest: ~/Downloads/vscode.deb
+    mode: 440
+
+- name: Install VSCode
+  ansible.builtin.apt:
+    deb: ~/Downloads/vscode.deb

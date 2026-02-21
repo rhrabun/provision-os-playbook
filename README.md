@@ -34,4 +34,3 @@ To execute this playbook on freshly installed system, perform next steps:
 
 
 ## ToDo's:
-* VSCode download deb file and install?

@@ -25,3 +25,5 @@ pymodules_to_install:
   - httpie
   - ansible
   - tldr
+
+vscode_url: "https://update.code.visualstudio.com/latest/linux-deb-x64/stable"
