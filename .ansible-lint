@@ -2,3 +2,4 @@ profile: null
 
 skip_list:
   - "yaml[empty-lines]"
+  - '403' # Ignore "Package installs should not use latest" warning

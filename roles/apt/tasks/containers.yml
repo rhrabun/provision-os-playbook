@@ -1,21 +1,21 @@
 - name: Install Docker & kubectl
   become: true
-  apt:
+  ansible.builtin.apt:
     name:
       - docker
       - docker.io
 
 - name: Create Docker group
   become: true
-  group:
+  ansible.builtin.group:
     name: docker
     state: present
 
 - name: Add user to Docker group
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user }}"
     groups:
       - docker
-    append: yes
+    append: true
 

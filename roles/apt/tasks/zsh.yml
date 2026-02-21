@@ -1,44 +1,44 @@
 - name: Install ZSH
   become: true
-  apt:
+  ansible.builtin.apt:
     name: 'zsh'
     state: latest
 
 - name: Clone Oh-My-ZSH repository
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
     dest: '~/.oh-my-zsh'
 
 - name: Clone ZSH Autosuggestions plugin
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: '~/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
 
 - name: Clone ZSH Syntax Highlighting plugin
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: '~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
 - name: Copy my custom ZSH config file
-  copy:
+  ansible.builtin.copy:
     src: '{{ inventory_dir }}/config_files/.zshrc'
     dest: '~/.zshrc'
-    remote_src: no
+    remote_src: false
 
 - name: Create ZSH cache directory
-  file:
+  ansible.builtin.file:
     path: '~/.cache/zsh'
     state: directory
 
 - name: Create ZSH history file
-  file:
+  ansible.builtin.file:
     path: '~/.cache/zsh/history'
     state: touch
     mode: '0600'
 
 - name: Make ZSH defaul shell
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
 
