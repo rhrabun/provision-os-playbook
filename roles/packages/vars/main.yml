@@ -21,6 +21,7 @@ common_pkgs:
   - ghostty
 
 macos_pkgs:
+  - zen
   - vlc
   - flux
   - stats
@@ -40,6 +41,7 @@ macos_pkgs:
   - google-drive
   - logi-options+
   - wireshark-app
+  - helium-browser
   - jordanbaird-ice
 
 # mas_apps:
