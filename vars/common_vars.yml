@@ -1,11 +1,9 @@
 packages_to_install:
   # GUI
   - tilix
-  - plank
   # Python-related
   - python3-pip
   # General utilities
-  - nano
   - curl
   - wget
   - htop
