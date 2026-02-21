@@ -16,7 +16,7 @@ To execute this playbook on freshly installed system, perform next steps:
 `~/.local/bin/ansible --version` 
 
 5. Clone playbook repo and `cd` there <br/>
-`git clone https://gitlab.com/Afandi_bobo/provision-os-playbook.git && cd provision-os-playbook`
+`git clone https://github.com/rhrabun/provision-os-playbook.git && cd provision-os-playbook`
 
 6. Create `hosts.yml` file and provide missing values as shown in `hosts.example.yml` file <br/>
 `cp hosts.example.yml hosts.yml`
