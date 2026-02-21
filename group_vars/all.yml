@@ -13,3 +13,6 @@ utils:
   - vim
   - httpie
   - tlrc
+  - zoxide
+  - fd
+  - fzf
