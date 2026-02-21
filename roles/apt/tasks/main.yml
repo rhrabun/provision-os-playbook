@@ -26,9 +26,9 @@
 - name: Install and configure ZSH
   include_tasks: zsh.yml
 
-- name: Install VSCode Settings Sync extension
-  command: code --install-extension shan.code-settings-sync
-  changed_when: false
+# - name: Install VSCode Settings Sync extension
+#   command: code --install-extension shan.code-settings-sync
+#   changed_when: false
 
 - name: Install Docker and Kubectl
   include_tasks: containers.yml
