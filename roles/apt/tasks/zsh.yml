@@ -26,6 +26,13 @@
     remote_src: false
     mode: '664'
 
+- name: Copy my custom ZSH aliases file
+  ansible.builtin.copy:
+    src: '{{ inventory_dir }}/config_files/aliases.zsh'
+    dest: '~/.oh-my-zsh/custom'
+    remote_src: false
+    mode: '664'
+
 - name: Install powerlevel10k theme
   ansible.builtin.git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
