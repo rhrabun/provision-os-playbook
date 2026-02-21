@@ -13,6 +13,8 @@ brew "fd"
 brew "fzf"
 # Distributed revision control system
 brew "git"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Simple terminal UI for git commands
