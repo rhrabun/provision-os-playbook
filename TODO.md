@@ -8,4 +8,3 @@
   * core - core utils ?
 - [ ] New packages to install:
   * Zen
-- [ ] Fix dotfiles repo cloning to ssh
