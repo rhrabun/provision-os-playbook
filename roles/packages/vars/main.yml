@@ -1,7 +1,6 @@
 # Some may be not available across all distributions
 
 cli_utils:
-  - uv
   - fd
   - fzf
   - git
@@ -13,22 +12,25 @@ cli_utils:
   - httpie
   - zoxide
 
-common_packages:
+mac_cli_utils:
+  - uv
+  - mas
+
+common_pkgs:
   - zed
   - ghostty
 
-mac_packages:
+macos_pkgs:
   - vlc
   - flux
   - stats
-  - alfred
+  - raycast
   - spotify
   - aldente
   - calibre
   - itsycal
   - telegram
   - protonvpn
-  - rectangle
   - bitwarden
   - oversight
   - todoist-app
@@ -39,6 +41,14 @@ mac_packages:
   - logi-options+
   - wireshark-app
   - jordanbaird-ice
+
+# mas_apps:
+#   - 937984704
+#   - 302584613
+  # - 585829637
+  # - 1596283165
+  # - 1398373917
+  # - 585829637
 
 mac_taps:
   - buo/cask-upgrade

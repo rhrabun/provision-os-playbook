@@ -13,7 +13,7 @@
 - name: Install packages
   become: true
   ansible.builtin.apt:
-    name: "{{ linux_packages + common_packages }}"
+    name: "{{ linux_packages + common_pkgs }}"
     state: present
 
 - name: Install cli utils
