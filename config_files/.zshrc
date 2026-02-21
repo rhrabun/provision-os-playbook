@@ -78,29 +78,22 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   # system
+  aliases  
   history
-  debian
-  cp
+  screen
   colored-man-pages
-  colorize
   zsh-autosuggestions
   zsh-syntax-highlighting
   # utils
-  git
   httpie
-  ansible
   docker
   kubectl
   helm
   aws
-  #python
-  python
   pip
   virtualenv
-  # node
-  node
   npm
-  # Golang
+  nvm
   golang
 )
 
