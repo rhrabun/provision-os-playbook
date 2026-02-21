@@ -1,4 +1,4 @@
-- name: Create temporary  directory
+- name: Create temporary directory
   ansible.builtin.tempfile:
     state: directory
     suffix: temp
