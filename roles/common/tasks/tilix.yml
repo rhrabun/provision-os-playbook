@@ -1,0 +1,22 @@
+- name: Install Tilix
+  become: yes
+  apt:
+    name: tilix
+    state: present
+
+- name: Set Tilix as default terminal
+  become: yes
+  community.general.alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/tilix.wrapper
+
+- name: Copy my custom Tilix config file
+  copy:
+    src: '{{ inventory_dir }}/config_files/tilix.dconf'
+    dest: '~/ansible_temp/tilix.dconf'
+    remote_src: no
+
+- name: Load Tilix configuration via dconf
+  shell: dconf load /com/gexperts/Tilix/ < tilix.dconf
+  args:
+    chdir: '~/ansible_temp/'

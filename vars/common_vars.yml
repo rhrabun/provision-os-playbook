@@ -1,0 +1,29 @@
+packages_to_install:
+  # GUI
+  - chromium
+  - code
+  - tilix
+  - plank
+  # Python-related
+  - python3-pip
+  # General utilities
+  - nano
+  - curl
+  - wget
+  - htop
+  - git
+  - unzip
+  - bash-completion
+  - openssh-server
+  # Docker
+  - apt-transport-https
+  - ca-certificates
+  - gnupg-agent
+  - software-properties-common
+
+pymodules_to_install:
+  - virtualenv
+  - awscli
+  - httpie
+  - ansible
+  - tldr

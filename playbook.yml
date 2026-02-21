@@ -1,0 +1,7 @@
+- name: Configure OS
+  hosts: all
+  vars_files:
+    - vars/common_vars.yml
+  roles:
+    - { role: apt, when: ansible_pkg_mgr|lower == 'apt' }
+    - common

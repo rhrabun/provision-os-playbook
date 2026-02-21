@@ -1,0 +1,44 @@
+- name: Install ZSH
+  become: yes
+  apt:
+    name: 'zsh'
+    state: latest
+
+- name: Clone Oh-My-ZSH repository
+  git:
+    repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+    dest: '~/.oh-my-zsh'
+
+- name: Clone ZSH Autosuggestions plugin
+  git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: '~/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
+
+- name: Clone ZSH Syntax Highlighting plugin
+  git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: '~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
+
+- name: Copy my custom ZSH config file
+  copy:
+    src: '{{ inventory_dir }}/config_files/.zshrc'
+    dest: '~/.zshrc'
+    remote_src: no
+
+- name: Create ZSH cache directory
+  file:
+    path: '~/.cache/zsh'
+    state: directory
+
+- name: Create ZSH history file
+  file:
+    path: '~/.cache/zsh/history'
+    state: touch
+    mode: '0600'
+
+- name: Make ZSH defaul shell
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+

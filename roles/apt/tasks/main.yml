@@ -1,0 +1,34 @@
+- name: Update repos
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Upgrade system
+  become: yes
+  apt:
+    name: "*"
+    state: latest
+    force: yes
+
+- name: Install packages and utilities
+  become: yes
+  apt:
+    name:  "{{ packages_to_install }}"
+    state: latest
+
+- name: Clean redundant packages and dependencies
+  become: yes
+  apt:
+    update_cache: yes
+    autoclean: yes
+    autoremove: yes
+
+- name: Install and configure ZSH
+  include_tasks: zsh.yml
+
+- name: Install VSCode Settings Sync extension
+  command: code --install-extension shan.code-settings-sync
+  changed_when: false
+
+- name: Install Docker and Kubectl
+  include_tasks: containers.yml
