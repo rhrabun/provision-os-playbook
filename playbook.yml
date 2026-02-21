@@ -3,5 +3,5 @@
   vars_files:
     - vars/common_vars.yml
   roles:
-    - { role: apt, when: ansible_pkg_mgr|lower == 'apt' }
+    # - { role: apt, when: ansible_pkg_mgr|lower == 'apt' }
     - common
