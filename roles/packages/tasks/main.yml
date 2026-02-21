@@ -1,0 +1,11 @@
+- name: Homebrew install
+  ansible.builtin.include_tasks: homebrew.yml
+  when: ansible_pkg_mgr == 'homebrew'
+  
+- name: APT install
+  ansible.builtin.include_tasks: apt.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Pacman install
+  ansible.builtin.include_tasks: pacman.yml
+  when: ansible_pkg_mgr == 'pacman'

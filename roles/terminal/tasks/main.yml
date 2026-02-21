@@ -1,0 +1,5 @@
+- name: Configure dotfiles
+  ansible.builtin.include_tasks: dotfiles.yml
+  
+- name: Configure ZSH
+  ansible.builtin.include_tasks: zsh.yml

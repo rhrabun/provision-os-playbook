@@ -1,0 +1,15 @@
+personal_packages:
+  # - zen
+
+development_packages:
+  - ghostty
+  - zed
+  - uv
+
+utils:
+  - stow
+  - htop
+  - git
+  - vim
+  - httpie
+  - tlrc

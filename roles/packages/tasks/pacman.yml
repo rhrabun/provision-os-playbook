@@ -1,0 +1,32 @@
+- name: Update package database
+  become: true
+  community.general.pacman:
+    update_cache: true
+
+- name: Upgrade system
+  become: true
+  community.general.pacman:
+    upgrade: true
+
+- name: Install personal packages
+  become: true
+  community.general.pacman:
+    name: "{{ personal_packages }}"
+    state: present
+
+- name: Install development packages
+  become: true
+  community.general.pacman:
+    name: "{{ development_packages }}"
+    state: present
+
+- name: Install utils
+  become: true
+  community.general.pacman:
+    name: "{{ utils }}"
+    state: present
+
+- name: Remove unneeded dependencies
+  become: true
+  community.general.pacman:
+    autoremove: true
