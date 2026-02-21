@@ -11,7 +11,7 @@
 - name: Install packages
   become: true
   community.general.pacman:
-    name: "{{ linux_packages }}"
+    name: "{{ linux_packages + common_packages }}"
     state: present
 
 - name: Install cli utils

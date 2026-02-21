@@ -14,8 +14,8 @@ cli_utils:
   - zoxide
 
 common_packages:
-  - ghostty
   - zed
+  - ghostty
 
 mac_packages:
   - vlc
