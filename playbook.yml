@@ -2,7 +2,8 @@
   hosts: all
   gather_facts: true
   roles:
-    # - print_facts
+    - role: print_facts # debug
+      tags: facts      
 
     - role: packages
       tags: packages
