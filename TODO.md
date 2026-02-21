@@ -15,4 +15,4 @@
   * ghostty
   * Zed
   * Zen
-  
+- [x] Install Nerd font
