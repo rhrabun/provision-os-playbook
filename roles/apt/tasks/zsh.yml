@@ -26,6 +26,12 @@
     remote_src: false
     mode: '664'
 
+- name: Install powerlevel10k theme
+  ansible.builtin.git:
+    repo: 'https://github.com/romkatv/powerlevel10k.git'
+    dest: '~/.oh-my-zsh/custom/themes/powerlevel10k'
+    depth: 1
+
 - name: Copy ZSH theme (powerlevel10k) config file
   ansible.builtin.copy:
     src: '{{ inventory_dir }}/config_files/.p10k.zsh'

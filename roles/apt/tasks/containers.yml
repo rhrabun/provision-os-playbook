@@ -1,4 +1,4 @@
-- name: Install Docker & kubectl
+- name: Install Docker
   become: true
   ansible.builtin.apt:
     name:
