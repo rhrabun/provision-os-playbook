@@ -1,7 +1,6 @@
-# Some may be not available across all distributions
-
 cli_utils:
   - fd
+  - uv
   - fzf
   - git
   - vim
@@ -12,48 +11,6 @@ cli_utils:
   - httpie
   - zoxide
 
-mac_cli_utils:
-  - uv
-  - mas
-
-common_pkgs:
+pkgs:
   - zed
   - ghostty
-
-macos_pkgs:
-  - zen
-  - vlc
-  - flux
-  - stats
-  - raycast
-  - spotify
-  - aldente
-  - calibre
-  - itsycal
-  - telegram
-  - protonvpn
-  - bitwarden
-  - oversight
-  - todoist-app
-  - app-cleaner
-  - proton-mail
-  - proton-drive
-  - google-drive
-  - logi-options+
-  - wireshark-app
-  - helium-browser
-  - jordanbaird-ice
-
-# mas_apps:
-#   - 937984704
-#   - 302584613
-  # - 585829637
-  # - 1596283165
-  # - 1398373917
-  # - 585829637
-
-mac_taps:
-  - buo/cask-upgrade
-  
-# linux_packages:
-#   - test
