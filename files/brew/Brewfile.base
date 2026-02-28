@@ -58,6 +58,7 @@ cask "cryptomator"
 cask "ente-auth"
 # Screen colour temperature controller
 cask "flux-app"
+cask "font-fira-code-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Free and open-source image editor
