@@ -34,8 +34,6 @@ brew "vim"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 
-# AeroSpace is an i3-like tiling window manager for macOS
-cask "nikitabobko/tap/aerospace"
 # Menu bar tool to limit maximum charging percentage
 cask "aldente"
 # Allows connection to a computer remotely
@@ -59,8 +57,6 @@ cask "flux-app"
 cask "font-fira-code-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Free and open-source image editor
-cask "gimp"
 # Client for the Google Drive storage service
 cask "google-drive"
 # Keyboard shortcuts for every button on your screen
@@ -75,6 +71,8 @@ cask "logi-options+"
 cask "nvidia-geforce-now"
 # Monitors computer mic and webcam
 cask "oversight"
+# Simple Gtk# Paint Program
+cask "pinta"
 # Client for Proton Drive
 cask "proton-drive"
 # Client for Proton Mail and Proton Calendar
