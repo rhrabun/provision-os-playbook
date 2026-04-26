@@ -85,6 +85,8 @@ cask "protonvpn"
 cask "raycast"
 # Music streaming service
 cask "spotify"
+# Menu bar manager
+cask "thaw"
 # To-do list
 cask "todoist-app"
 # Multimedia player
