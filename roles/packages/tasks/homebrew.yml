@@ -3,9 +3,23 @@
     update_homebrew: true
     upgrade_all: true
 
-- name: Install Brew packages via Brewfile
-  command: brew bundle install --file Brewfile.base
-  args:
-    chdir: "{{ playbook_dir }}/files/brew"
-  register: brew_bundle
-  failed_when: brew_bundle.rc != 0
+- name: Add Homebrew taps
+  community.general.homebrew_tap:
+    name: "{{ homebrew_taps }}"
+    state: present
+
+- name: Install CLI utilities
+  community.general.homebrew:
+    name: "{{ homebrew_cli_utils }}"
+    state: present
+
+- name: Install GUI applications (Casks)
+  community.general.homebrew_cask:
+    name: "{{ homebrew_casks }}"
+    state: present
+
+- name: Install Mac App Store applications
+  community.general.mas:
+    id: "{{ item.id }}"
+    state: present
+  loop: "{{ homebrew_mas_apps }}"
