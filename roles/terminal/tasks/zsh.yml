@@ -1,17 +1,17 @@
 - name: Create ZSH cache directory
   ansible.builtin.file:
-    path: '{{ ansible_env.HOME }}/.cache/zsh'
+    path: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh"
     state: directory
     mode: '775'
 
 - name: Create ZSH history file
   ansible.builtin.file:
-    path: '{{ ansible_env.HOME }}/.cache/zsh/history'
+    path: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh/history"
     state: touch
     mode: '600'
 
 - name: Make ZSH defaul shell
-  when: ansible_os_family != 'Darwin'
+  when: ansible_facts['os_family'] == 'Darwin'
   become: true
   ansible.builtin.user:
     name: "{{ ansible_user }}"
