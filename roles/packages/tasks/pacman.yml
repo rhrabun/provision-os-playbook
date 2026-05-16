@@ -17,7 +17,7 @@
 - name: Install cli utils
   become: true
   community.general.pacman:
-    name: "{{ cli_utils }}"
+    name: "{{ cli_tools }}"
     state: present
 
 - name: Remove unneeded dependencies

@@ -5,21 +5,21 @@
 
 - name: Add Homebrew taps
   community.general.homebrew_tap:
-    name: "{{ homebrew_taps }}"
+    name: "{{ taps }}"
     state: present
 
 - name: Install CLI utilities
   community.general.homebrew:
-    name: "{{ homebrew_cli_utils }}"
+    name: "{{ cli_tools }}"
     state: present
 
 - name: Install GUI applications (Casks)
   community.general.homebrew_cask:
-    name: "{{ homebrew_casks }}"
+    name: "{{ apps }}"
     state: present
 
 - name: Install Mac App Store applications
   community.general.mas:
     id: "{{ item.id }}"
     state: present
-  loop: "{{ homebrew_mas_apps }}"
+  loop: "{{ mas_apps }}"

@@ -19,7 +19,7 @@
 - name: Install cli utils
   become: true
   ansible.builtin.apt:
-    name: "{{ cli_utils }}"
+    name: "{{ cli_tools }}"
     state: present
 
 - name: Clean redundant packages and dependencies

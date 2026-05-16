@@ -1,0 +1,81 @@
+---
+# macOS-specific variables
+
+taps:
+  - buo/cask-upgrade
+  - nikitabobko/tap
+
+cli_tools:
+  - go
+  - fd
+  - uv
+  - vim
+  - fzf
+  - git
+  - bat
+  - mas
+  - mole
+  - stow
+  - tlrc
+  - tmux
+  - btop
+  - httpie
+  - zoxide
+  - lazygit
+  - ansible
+
+apps:
+  - zed
+  - zen
+  - vlc
+  - thaw
+  - pinta
+  - aldente
+  - anydesk
+  - calibre
+  - raycast
+  - spotify
+  - ghostty
+  - itsycal
+  - homerow
+  - flux-app
+  - oversight
+  - protonvpn
+  - ente-auth
+  - bitwarden
+  - wispr-flow
+  - app-cleaner
+  - cryptomator
+  - todoist-app
+  - proton-mail
+  - proton-drive
+  - google-drive
+  - logi-options+
+  - betterdisplay
+  - input-source-pro
+  - nvidia-geforce-now
+  - cold-turkey-blocker
+  - font-fira-code-nerd-font
+
+mas_apps:
+  - { name: "UpNote", id: 1398373917 }
+  - { name: "Amphetamine", id: 937984704 }
+  - { name: "AdGuard Mini", id: 1440147259 }
+
+# macOS system settings
+system_settings:
+  finder:
+    - { key: ShowPathbar, type: bool, value: "true" }
+    - { key: ShowStatusBar, type: bool, value: "true" }
+    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
+  dock:
+    - { key: tilesize, type: float, value: 45 }
+    - { key: large-size, type: int, value: 77 }
+    - { key: show-recents, type: int, value: 0 }
+    - { key: autohide, type: bool, value: "true" }
+    - { key: autohide-delay, type: float, value: 0 }
+    - { key: mineffect, type: string, value: "scale" }
+    - { key: magnification, type: bool, value: "true" }
+    - { key: minimize-to-application, type: bool, value: "true" }
+  global:
+    - { key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: "false" }

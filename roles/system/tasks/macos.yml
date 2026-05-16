@@ -4,10 +4,7 @@
     key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
-  loop:
-    - { key: ShowPathbar, type: bool, value: "true" }
-    - { key: ShowStatusBar, type: bool, value: "true" }
-    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
+  loop: "{{ system_settings.finder }}"
 
 - name: Configure Dock preferences
   community.general.osx_defaults:
@@ -15,20 +12,13 @@
     key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
-  loop:
-    - { key: tilesize, type: float, value: 45 }
-    - { key: large-size, type: int, value: 77 }
-    - { key: show-recents, type: int, value: 0 }
-    - { key: autohide, type: bool, value: "true" }
-    - { key: autohide-delay, type: float, value: 0 }
-    - { key: mineffect, type: string, value: "scale" }
-    - { key: magnification, type: bool, value: "true" }
-    - { key: minimize-to-application, type: bool, value: "true" }
+  loop: "{{ system_settings.dock }}"
   notify: restart dock
 
-- name: Disable auto-correct
+- name: Configure Global preferences
   community.general.osx_defaults:
     domain: NSGlobalDomain
-    key: NSAutomaticSpellingCorrectionEnabled
-    type: bool
-    value: "false"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+  loop: "{{ system_settings.global }}"

@@ -1,9 +1,12 @@
 - name: Configure OS
   hosts: all
   gather_facts: true
+  vars_files:
+    - vars/common.yml
+    - vars/{{ 'macos.yml' if ansible_facts['os_family'] == 'Darwin' else 'linux.yml' }}
   roles:
-    - role: print_facts # debug
-      tags: facts      
+    # - role: print_facts # debug
+    #   tags: facts      
 
     - role: packages
       tags: packages

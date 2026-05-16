@@ -1,0 +1,6 @@
+---
+# Linux-specific variables (apt and pacman)
+
+pkgs: []
+
+cli_tools: []
