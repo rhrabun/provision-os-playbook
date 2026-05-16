@@ -3,11 +3,28 @@
   gather_facts: true
   vars_files:
     - vars/common.yml
-    - vars/{{ 'macos.yml' if ansible_facts['os_family'] == 'Darwin' else 'linux.yml' }}
-  roles:
-    # - role: print_facts # debug
-    #   tags: facts      
 
+  pre_tasks:
+    - name: Print available facts
+      ansible.builtin.debug:
+        var: ansible_facts
+      tags: [never, facts]
+    
+    # Ansible evaluates vars_files at playbook parse time (before facts are gathered),
+    # so loading of OS-specific variables must be done when facts are available
+    - name: Include Darwin-specific vars
+      when: ansible_facts['os_family'] == 'Darwin'
+      ansible.builtin.include_vars:
+        file: "vars/macos.yml"
+      tags: always
+
+    - name: Include Linux-specific vars
+      when: ansible_facts['os_family'] != 'Darwin'
+      ansible.builtin.include_vars:
+        file: "vars/linux.yml"
+      tags: always
+
+  roles:
     - role: packages
       tags: packages
       
