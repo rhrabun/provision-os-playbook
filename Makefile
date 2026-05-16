@@ -1,7 +1,28 @@
-.ONESHELL:
-install-requirements:
-	python3 -m pip install ansible --user
-	~/.local/bin/ansible --version
+# Run `make` to see commands
 
-run:
-	~/.local/bin/ansible-playbook playbook.yml --ask-become-pass
+.PHONY: help run run-tag install-requirements 
+.DEFAULT_GOAL := help
+
+UNAME_S := $(shell uname -s)
+
+# OS-specific 
+ifeq ($(UNAME_S),Darwin)
+	INSTALL_CMD := brew install
+else ifeq ($(UNAME_S),Linux)
+	INSTALL_CMD := python3 -m pip install --user
+else
+	$(error Unsupported OS: $(UNAME_S))
+endif
+
+help: ## Show help message
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+run: ## Run Ansible playbook
+	ansible-playbook playbook.yml --ask-become-pass
+
+run-tag: ## Run Ansible playbook with specific tag (e.g. `make run-tag tag=terminal`)
+	ansible-playbook playbook.yml --ask-become-pass -t $(tag)
+
+install: ## Install Ansible and dependencies
+	$(INSTALL_CMD) ansible
+	ansible --version
