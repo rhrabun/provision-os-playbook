@@ -67,15 +67,100 @@ system_settings:
   finder:
     - { key: ShowPathbar, type: bool, value: "true" }
     - { key: ShowStatusBar, type: bool, value: "true" }
+    # Set column view as default
     - { key: FXPreferredViewStyle, type: string, value: "clmv" }
+    # Don't show icons for hard drives, servers, and removable media on the desktop
+    - { key: ShowExternalHardDrivesOnDesktop, type: bool, value: "false" }
+    - { key: ShowHardDrivesOnDesktop, type: bool, value: "false" }
+    - {  key: ShowMountedServersOnDesktop, type: bool, value: "false" }
+    - {  key: ShowRemovableMediaOnDesktop, type: bool, value: "false" }
+
+    # Disable window animations and Get Info animations
+    - { key: DisableAllAnimations, type: bool, value: "true" }
+
+    # Don't show hidden files by default
+    - { key: AppleShowAllFiles, type: bool, value: "false" }
+
+
+    # Show status bar
+    - { key: ShowStatusBar, type: bool, value: true }
+
+    # Show path bar
+    - { key: ShowPathbar, type: bool, value: true }
+
+    # Keep folders on top when sorting by name
+    - { key: _FXSortFoldersFirst, type: bool, value: true }
+
+    # When performing a search, search the current folder by default
+    - { key: FXDefaultSearchScope, type: string, value: "SCcf" }
+
+    # Disable the warning when changing a file extension
+    - { key: FXEnableExtensionChangeWarning, type: bool, value: false }
   dock:
     - { key: tilesize, type: float, value: 45 }
     - { key: large-size, type: int, value: 77 }
     - { key: show-recents, type: int, value: 0 }
-    - { key: autohide, type: bool, value: "true" }
-    - { key: autohide-delay, type: float, value: 0 }
     - { key: mineffect, type: string, value: "scale" }
     - { key: magnification, type: bool, value: "true" }
     - { key: minimize-to-application, type: bool, value: "true" }
-  global:
+    # Remove the auto-hiding Dock delay
+    - { key: autohide, type: bool, value: "true" }
+    - { key: autohide-delay, type: float, value: 0 }
+    # Remove the animation when hiding/showing the Dock
+    - { key: autohide-time-modifier, type: int, value: 0 }
+
+    # Make Dock icons of hidden applications translucent
+    - { key: showhidden, type: bool, value: true }
+  global: # NSGlobalDomain
+    # Always show scrollbars
+    - { key: AppleShowScrollBars, type: string, value: "Always" } # Possible values: `WhenScrolling`, `Automatic` and `Always`
+    # Enable tap to click
+    - { key: com.apple.mouse.tapBehavior, type: int, value: 1 }
+    # Disable “natural” scrolling
+    - { key: com.apple.swipescrolldirection, type: bool, value: "false" }
+    # Enable press-and-hold for keys in favor of key repeat
+    - { key: ApplePressAndHoldEnabled, type: bool, value: true }
+
+    # Disable automatic capitalization as it’s annoying when typing code
+    - { key: NSAutomaticCapitalizationEnabled, type: bool, value: "false" }
+    # Disable automatic spelling correction
     - { key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: "false" }
+    # Disable smart dashes as they’re annoying when typing code
+    - { key: NSAutomaticDashSubstitutionEnabled, type: bool, value: "false" }
+    # Disable automatic period substitution as it’s annoying when typing code
+    - { key: NSAutomaticPeriodSubstitutionEnabled, type: bool, value: "false" }
+    # Disable smart quotes as they’re annoying when typing code
+    - { key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: "false" }
+
+    # Enable spring loading for directories
+    - { key: com.apple.springing.enabled, type: bool, value: true }
+    # Remove the spring loading delay for directories
+    - { key: com.apple.springing.delay, type: float, value: 0 }
+
+    # Show all filename extensions
+    - { key: AppleShowAllExtensions, type: bool, value: true }
+  
+  system: # Different domains for system-wide settings
+    # Disable the “Are you sure you want to open this application?” dialog
+    - { domain: com.apple.LaunchServices, key: LSQuarantine, type: bool, value: "false" }
+
+    # Enable Resume system-wide
+    - { domain: com.apple.systempreferences, key: NSQuitAlwaysKeepsWindows, type: bool, value: "true" }
+
+    # Trackpad: enable tap to click and for the login screen
+    - { domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: bool, value: "true" }
+
+    # Save screenshots to the Screenshots folder 
+    - { domain: com.apple.screencapture, key: location, type: string, value: "${HOME}/Puctures/Screenshots" }
+    # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+    - { domain: com.apple.screencapture, key: type, type: string, value: "JPG" }
+    # Disable shadow in screenshots
+    - { domain: com.apple.screencapture, key: disable-shadow, type: bool, value: true }
+
+    # Avoid creating .DS_Store files on network or USB volumes
+    - { domain: com.apple.desktopservices, key: DSDontWriteNetworkStores, type: bool, value: true }
+    - { domain: com.apple.desktopservices, key: DSDontWriteUSBStores, type: bool, value: true }
+
+    # Require password immediately after sleep or screen saver begins
+    # - { domain: com.apple.screensaver, key: askForPassword, type: int, value: 1 }
+    # - { domain: com.apple.screensaver, key: askForPasswordDelay, type: int, value: 0 }

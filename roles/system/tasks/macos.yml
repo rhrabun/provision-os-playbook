@@ -22,3 +22,11 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
   loop: "{{ system_settings.global }}"
+
+- name: Configure System preferences
+  community.general.osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+  loop: "{{ system_settings.system }}"
