@@ -59,7 +59,6 @@ apps:
 
 mas_apps:
   - { name: "UpNote", id: 1398373917 }
-  - { name: "Amphetamine", id: 937984704 }
   - { name: "AdGuard Mini", id: 1440147259 }
 
 # macOS system settings
