@@ -28,6 +28,7 @@ apps:
   - zed
   - zen
   - vlc
+  - lulu
   - thaw
   - pinta
   - aldente
@@ -44,7 +45,6 @@ apps:
   - ente-auth
   - bitwarden
   - wispr-flow
-  - app-cleaner
   - cryptomator
   - todoist-app
   - proton-mail
