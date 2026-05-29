@@ -65,20 +65,21 @@ system_settings:
   finder:
     - { key: ShowPathbar, type: bool, value: "true" }
     - { key: ShowStatusBar, type: bool, value: "true" }
+
     # Set column view as default
     - { key: FXPreferredViewStyle, type: string, value: "clmv" }
+
     # Don't show icons for hard drives, servers, and removable media on the desktop
     - { key: ShowExternalHardDrivesOnDesktop, type: bool, value: "false" }
     - { key: ShowHardDrivesOnDesktop, type: bool, value: "false" }
-    - {  key: ShowMountedServersOnDesktop, type: bool, value: "false" }
-    - {  key: ShowRemovableMediaOnDesktop, type: bool, value: "false" }
+    - { key: ShowMountedServersOnDesktop, type: bool, value: "false" }
+    - { key: ShowRemovableMediaOnDesktop, type: bool, value: "false" }
 
     # Disable window animations and Get Info animations
     - { key: DisableAllAnimations, type: bool, value: "true" }
 
     # Don't show hidden files by default
     - { key: AppleShowAllFiles, type: bool, value: "false" }
-
 
     # Show status bar
     - { key: ShowStatusBar, type: bool, value: true }
