@@ -3,7 +3,6 @@
 
 taps:
   - buo/cask-upgrade
-  - nikitabobko/tap
 
 cli_tools:
   - go
@@ -52,6 +51,7 @@ apps:
   - logi-options+
   - betterdisplay
   - input-source-pro
+  - visual-studio-code
   - nvidia-geforce-now
   - cold-turkey-blocker
   - font-fira-code-nerd-font
