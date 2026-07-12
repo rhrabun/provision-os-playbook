@@ -1,8 +1,7 @@
 ---
 # macOS-specific variables
 
-taps:
-  - buo/cask-upgrade
+# taps:
 
 cli_tools:
   - go

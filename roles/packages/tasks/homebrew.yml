@@ -3,10 +3,10 @@
     update_homebrew: true
     upgrade_all: true
 
-- name: Add Homebrew taps
-  community.general.homebrew_tap:
-    name: "{{ taps }}"
-    state: present
+# - name: Add Homebrew taps
+#   community.general.homebrew_tap:
+#     name: "{{ taps }}"
+#     state: present
 
 - name: Install CLI utilities
   community.general.homebrew:
