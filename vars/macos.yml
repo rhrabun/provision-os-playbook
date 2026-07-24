@@ -32,7 +32,6 @@ apps:
   - aldente
   - anydesk
   - calibre
-  - raycast
   - spotify
   - ghostty
   - itsycal
@@ -49,6 +48,8 @@ apps:
   - google-drive
   - logi-options+
   - betterdisplay
+  - bitwarden-cli
+  - telegram-desktop
   - input-source-pro
   - visual-studio-code
   - nvidia-geforce-now
