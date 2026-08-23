@@ -1,6 +1,22 @@
 ---
 # Linux-specific variables (apt and pacman)
 
-pkgs: []
+pkgs_apt:
+  - fd-find
 
-cli_tools: []
+pkgs_pacman:
+  - fd
+
+# Installed by both apt and pacman
+common:
+  - zsh
+  - zoxide
+  - lazygit
+  - lazydocker
+  - ripgrep
+  - fzf
+  - bat
+  - eza
+  - tmux
+  - btop
+  - git

@@ -11,13 +11,13 @@
 - name: Install packages
   become: true
   community.general.pacman:
-    name: "{{ pkgs }}"
+    name: "{{ pkgs_pacman }}"
     state: present
 
-- name: Install cli utils
+- name: Install common packages
   become: true
   community.general.pacman:
-    name: "{{ cli_tools }}"
+    name: "{{ common }}"
     state: present
 
 - name: Remove unneeded dependencies

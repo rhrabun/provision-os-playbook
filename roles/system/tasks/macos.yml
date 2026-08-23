@@ -1,3 +1,8 @@
+- name: Ensure Screenshots directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env']['HOME'] }}/Pictures/Screenshots"
+    state: directory
+
 - name: Configure Finder preferences
   community.general.osx_defaults:
     domain: com.apple.finder

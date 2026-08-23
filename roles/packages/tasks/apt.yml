@@ -13,13 +13,13 @@
 - name: Install packages
   become: true
   ansible.builtin.apt:
-    name: "{{ pkgs}}"
+    name: "{{ pkgs_apt }}"
     state: present
 
-- name: Install cli utils
+- name: Install common packages
   become: true
   ansible.builtin.apt:
-    name: "{{ cli_tools }}"
+    name: "{{ common }}"
     state: present
 
 - name: Clean redundant packages and dependencies

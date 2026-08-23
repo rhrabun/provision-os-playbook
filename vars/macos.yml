@@ -4,7 +4,9 @@
 # taps:
 
 cli_tools:
-  - go
+  - chezmoi
+  - mise
+  - superfile
   - fd
   - uv
   - vim
@@ -47,7 +49,11 @@ apps:
   - google-drive
   - logi-options+
   - betterdisplay
-  - bitwarden-cli
+  - balenaetcher
+  - karabiner-elements
+  - obsidian
+  - proton-pass
+  - spokenly
   - telegram-desktop
   - input-source-pro
   - visual-studio-code
@@ -149,8 +155,8 @@ system_settings:
     - { domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: bool, value: "true" }
 
     # Save screenshots to the Screenshots folder 
-    - { domain: com.apple.screencapture, key: location, type: string, value: "${HOME}/Puctures/Screenshots" }
-    # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+    - { domain: com.apple.screencapture, key: location, type: string, value: "{{ lookup('env', 'HOME') }}/Pictures/Screenshots" }
+    # Save screenshots in JPG format (other options: BMP, GIF, JPG, PDF, TIFF)
     - { domain: com.apple.screencapture, key: type, type: string, value: "JPG" }
     # Disable shadow in screenshots
     - { domain: com.apple.screencapture, key: disable-shadow, type: bool, value: true }

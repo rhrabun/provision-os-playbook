@@ -1,6 +1,6 @@
 # Run `make` to see commands
 
-.PHONY: help run run-tag dry-run dry-run-tag install-requirements 
+.PHONY: help run run-tag dry-run dry-run-tag install 
 .DEFAULT_GOAL := help
 
 UNAME_S := $(shell uname -s)

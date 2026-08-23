@@ -1,4 +1,4 @@
-- name: Configure MacOs settings
+- name: Configure macOS settings
   ansible.builtin.include_tasks: macos.yml
   when: ansible_facts['os_family'] == 'Darwin'
   

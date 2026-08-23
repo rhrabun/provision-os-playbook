@@ -10,9 +10,16 @@
     state: touch
     mode: '600'
 
-- name: Make ZSH defaul shell
+- name: Make ZSH default shell (macOS)
   when: ansible_facts['os_family'] == 'Darwin'
   become: true
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
+
+- name: Make ZSH default shell (Linux)
+  when: ansible_facts['os_family'] != 'Darwin'
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
