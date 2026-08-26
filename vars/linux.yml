@@ -6,6 +6,7 @@ pkgs_apt:
 
 pkgs_pacman:
   - fd
+  - mise
 
 # Installed by both apt and pacman
 common:
@@ -20,3 +21,7 @@ common:
   - tmux
   - btop
   - git
+  - gh
+  - uv
+  - tlrc
+  - pre-commit

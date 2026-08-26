@@ -4,28 +4,31 @@
 # taps:
 
 cli_tools:
-  - chezmoi
-  - mise
-  - superfile
   - fd
+  - gh
   - uv
   - vim
   - fzf
   - git
   - bat
   - mas
+  - mise
   - mole
   - stow
-  - tlrc
   - tmux
   - btop
+  - tlrc
   - httpie
   - zoxide
   - lazygit
   - ansible
+  - chezmoi
+  - ripgrep
+  - opencode
+  - superfile
+  - pre-commit
 
 apps:
-  - zed
   - zen
   - vlc
   - lulu
@@ -38,6 +41,8 @@ apps:
   - ghostty
   - homerow
   - flux-app
+  - obsidian
+  - spokenly
   - oversight
   - protonvpn
   - ente-auth
@@ -45,18 +50,16 @@ apps:
   - cryptomator
   - todoist-app
   - proton-mail
+  - proton-pass
   - proton-drive
   - google-drive
+  - balenaetcher
   - logi-options+
   - betterdisplay
-  - balenaetcher
-  - karabiner-elements
-  - obsidian
-  - proton-pass
-  - spokenly
   - telegram-desktop
   - input-source-pro
   - visual-studio-code
+  - karabiner-elements
   - nvidia-geforce-now
   - cold-turkey-blocker
   - font-fira-code-nerd-font
