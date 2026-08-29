@@ -15,9 +15,9 @@ cli_tools:
   - mise
   - mole
   - stow
-  - tmux
   - btop
   - tlrc
+  - zellij
   - httpie
   - zoxide
   - lazygit

@@ -18,8 +18,8 @@ common:
   - fzf
   - bat
   - eza
-  - tmux
   - btop
+  - zellij
   - git
   - gh
   - uv
