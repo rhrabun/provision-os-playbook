@@ -1,0 +1,24 @@
+all:
+  children:
+    personal:
+      vars:
+        profile: personal
+      hosts:
+        local:
+          ansible_host: localhost
+          ansible_user: <username>
+          ansible_connection: local
+    servers:
+      vars:
+        profile: servers
+      hosts:
+        first-server:
+          ansible_host: <ip>
+          ansible_user: <user>
+          deploy_user: <deploy-username>
+          deploy_ssh_key: "<ssh-ed25519 pubkey>"
+        second-server:
+          ansible_host: <ip>
+          ansible_user: <user>
+          deploy_user: <deploy-username>
+          deploy_ssh_key: "<ssh-ed25519 pubkey>"
