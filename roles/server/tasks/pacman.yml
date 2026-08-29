@@ -1,0 +1,10 @@
+- name: Update package database
+  become: true
+  community.general.pacman:
+    update_cache: true
+
+- name: Install common packages
+  become: true
+  community.general.pacman:
+    name: "{{ common }}"
+    state: present

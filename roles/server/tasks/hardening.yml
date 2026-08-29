@@ -1,0 +1,77 @@
+- name: Require deploy user and ssh key
+  ansible.builtin.assert:
+    that:
+      - deploy_user is defined and deploy_user | length > 0
+      - deploy_ssh_key is defined and deploy_ssh_key | length > 0
+    fail_msg: >-
+      missing var for {{ inventory_hostname }}. Set deploy_user and deploy_ssh_key
+      in role vars or inventory, e.g.
+      -e deploy_user=roman -e deploy_ssh_key='ssh-ed25519 AAAA...'
+
+- name: Create deploy user and grant sudo
+  become: true
+  ansible.builtin.user:
+    name: "{{ deploy_user }}"
+    groups: sudo
+    append: true
+    shell: /bin/bash
+    create_home: true
+
+- name: Install deploy user ssh pubkey
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ deploy_user }}"
+    key: "{{ deploy_ssh_key }}"
+    state: present
+
+- name: SSH hardening drop-in
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/hardening.conf
+    content: |
+      PermitRootLogin no
+      PasswordAuthentication no
+      PubkeyAuthentication yes
+  notify: restart ssh
+
+- name: ufw default deny incoming
+  become: true
+  community.general.ufw:
+    rule: default
+    direction: incoming
+    policy: deny
+    state: enabled
+
+- name: ufw default allow outgoing
+  become: true
+  community.general.ufw:
+    rule: default
+    direction: outgoing
+    policy: allow
+    state: enabled
+
+- name: ufw allow OpenSSH
+  become: true
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Enable ufw
+  become: true
+  community.general.ufw:
+    state: enabled
+
+- name: Install unattended-upgrades
+  become: true
+  ansible.builtin.apt:
+    name: unattended-upgrades
+    state: present
+    update_cache: true
+
+- name: Enable automatic security upgrades
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";

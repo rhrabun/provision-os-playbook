@@ -1,0 +1,10 @@
+- name: Update repos
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install common packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ common }}"
+    state: present

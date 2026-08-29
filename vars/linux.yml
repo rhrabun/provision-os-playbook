@@ -1,5 +1,4 @@
 ---
-# Linux-specific variables (apt and pacman)
 
 pkgs_apt:
   - fd-find
@@ -10,18 +9,17 @@ pkgs_pacman:
 
 # Installed by both apt and pacman
 common:
-  - zsh
-  - zoxide
-  - lazygit
-  - lazydocker
-  - ripgrep
-  - fzf
-  - bat
-  - eza
-  - btop
-  - zellij
-  - git
   - gh
   - uv
+  - zsh
+  - fzf
+  - bat
+  - git
+  - vim
   - tlrc
-  - pre-commit
+  - btop
+  - zellij
+  - zoxide
+  - ripgrep
+  - lazygit
+  - lazydocker
