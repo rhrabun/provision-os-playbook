@@ -13,7 +13,6 @@ cli_tools:
   - mas
   - mise
   - mole
-  - stow
   - btop
   - tlrc
   - zellij
