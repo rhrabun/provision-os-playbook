@@ -1,7 +1,10 @@
 # Run `make` to see commands
 
-.PHONY: help run run-tag dry-run dry-run-tag install 
+.PHONY: help run run-tag dry-run dry-run-tag install
 .DEFAULT_GOAL := help
+
+# Host or host group to target, from inventory (e.g. `make run HOST=web01`)
+HOST ?= personal
 
 UNAME_S := $(shell uname -s)
 
@@ -21,15 +24,15 @@ install: ## Install Ansible and dependencies
 	$(INSTALL_CMD) ansible
 	ansible --version
 
-run: ## Run Ansible playbook
-	ansible-playbook playbook.yml --ask-become-pass
+run: ## Run Ansible playbook for host or host group (e.g. `make run HOST=web01`)
+	ansible-playbook playbook.yml --limit $(HOST) --ask-become-pass
 
 run-tag: ## Run Ansible playbook with specific tag (e.g. `make run-tag tag=terminal`)
-	ansible-playbook playbook.yml --ask-become-pass -t $(tag)
+	ansible-playbook playbook.yml --limit $(HOST) --ask-become-pass -t $(tag)
 
 dry-run: ## Dry-run Ansible playbook
-	ansible-playbook playbook.yml --check --ask-become-pass  
+	ansible-playbook playbook.yml --check --limit $(HOST) --ask-become-pass
 
 dry-run-tag: ## Dry-run Ansible playbook with specific tag (e.g. `make run-tag tag=terminal`)
-	ansible-playbook playbook.yml --check --ask-become-pass -t $(tag)
+	ansible-playbook playbook.yml --check --limit $(HOST) --ask-become-pass -t $(tag)
 
