@@ -1,8 +1,6 @@
 - name: Configure OS
   hosts: all
   gather_facts: true
-  vars_files:
-    - vars/common.yml
 
   pre_tasks:
     - name: Print available facts
@@ -24,12 +22,28 @@
         file: "vars/linux.yml"
       tags: always
 
+    - name: Verify become access
+      block:
+        - name: Test sudo with become password
+          become: true
+          ansible.builtin.command: whoami
+      rescue:
+        - name: Report become failure
+          ansible.builtin.fail:
+            msg: "Become failed: sudo password incorrect or unavailable. Re-run with a valid password (e.g. `make run BECOME_PASS=...`)."
+
   roles:
     - role: packages
+      when: profile == 'personal'
       tags: packages
-      
+
+    - role: server
+      when: profile == 'servers'
+      tags: server
+
     - role: terminal
       tags: terminal
 
     - role: system
+      when: profile == 'personal'
       tags: system
