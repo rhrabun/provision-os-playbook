@@ -1,5 +1,4 @@
 ---
-# macOS-specific variables
 
 # taps:
 
@@ -104,7 +103,7 @@ system_settings:
     # Disable the warning when changing a file extension
     - { key: FXEnableExtensionChangeWarning, type: bool, value: false }
   dock:
-    - { key: tilesize, type: float, value: 45 }
+    - { key: tilesize, type: int, value: 45 }
     - { key: large-size, type: int, value: 77 }
     - { key: show-recents, type: int, value: 0 }
     - { key: mineffect, type: string, value: "scale" }
