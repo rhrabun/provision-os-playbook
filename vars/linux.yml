@@ -8,7 +8,7 @@ pkgs_pacman:
   - mise
 
 # Installed by both apt and pacman
-common:
+pkgs_common:
   - gh
   - uv
   - zsh

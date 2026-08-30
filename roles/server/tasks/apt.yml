@@ -6,5 +6,5 @@
 - name: Install common packages
   become: true
   ansible.builtin.apt:
-    name: "{{ common }}"
+    name: "{{ pkgs_common }}"
     state: present

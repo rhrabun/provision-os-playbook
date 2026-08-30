@@ -6,5 +6,5 @@
 - name: Install common packages
   become: true
   community.general.pacman:
-    name: "{{ common }}"
+    name: "{{ pkgs_common }}"
     state: present

@@ -8,7 +8,6 @@
   ansible.builtin.apt:
     name: "*"
     state: latest
-    force: true
 
 - name: Install packages
   become: true
@@ -19,7 +18,7 @@
 - name: Install common packages
   become: true
   ansible.builtin.apt:
-    name: "{{ common }}"
+    name: "{{ pkgs_common }}"
     state: present
 
 - name: Clean redundant packages and dependencies
