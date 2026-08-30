@@ -23,7 +23,6 @@ cli_tools:
   - chezmoi
   - ripgrep
   - opencode
-  - superfile
   - pre-commit
 
 apps:
@@ -47,12 +46,12 @@ apps:
   - bitwarden
   - cryptomator
   - todoist-app
+  - bettermouse
   - proton-mail
   - proton-pass
   - proton-drive
   - google-drive
   - balenaetcher
-  - logi-options+
   - betterdisplay
   - telegram-desktop
   - input-source-pro

@@ -31,8 +31,8 @@ run-tag: ## Run Ansible playbook with specific tag (e.g. `make run-tag tag=termi
 	ansible-playbook playbook.yml --limit $(HOST) --ask-become-pass -t $(tag)
 
 dry-run: ## Dry-run Ansible playbook
-	ansible-playbook playbook.yml --check --limit $(HOST) --ask-become-pass
+	ansible-playbook playbook.yml --check --diff --limit $(HOST) --ask-become-pass
 
 dry-run-tag: ## Dry-run Ansible playbook with specific tag (e.g. `make run-tag tag=terminal`)
-	ansible-playbook playbook.yml --check --limit $(HOST) --ask-become-pass -t $(tag)
+	ansible-playbook playbook.yml --check --diff --limit $(HOST) --ask-become-pass -t $(tag)
 

@@ -14,13 +14,11 @@
       when: ansible_facts['os_family'] == 'Darwin'
       ansible.builtin.include_vars:
         file: "vars/macos.yml"
-      tags: always
 
     - name: Include Linux-specific vars
       when: ansible_facts['os_family'] != 'Darwin'
       ansible.builtin.include_vars:
         file: "vars/linux.yml"
-      tags: always
 
     - name: Verify become access
       block:
@@ -30,7 +28,7 @@
       rescue:
         - name: Report become failure
           ansible.builtin.fail:
-            msg: "Become failed: sudo password incorrect or unavailable. Re-run with a valid password (e.g. `make run BECOME_PASS=...`)."
+            msg: "Become failed: sudo password incorrect or unavailable. Re-run with a valid password."
 
   roles:
     - role: packages
