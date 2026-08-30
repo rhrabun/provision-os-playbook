@@ -8,6 +8,7 @@ all:
           ansible_host: localhost
           ansible_user: <username>
           ansible_connection: local
+          ansible_host_key_checking: false
     servers:
       vars:
         profile: servers
