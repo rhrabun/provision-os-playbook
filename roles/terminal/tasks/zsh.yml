@@ -2,24 +2,17 @@
   ansible.builtin.file:
     path: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh"
     state: directory
-    mode: '775'
+    mode: '700'
 
 - name: Create ZSH history file
-  ansible.builtin.file:
-    path: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh/history"
-    state: touch
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh/history"
+    force: false
     mode: '600'
 
-- name: Make ZSH default shell (macOS)
-  when: ansible_facts['os_family'] == 'Darwin'
+- name: Make ZSH default shell
   become: true
   ansible.builtin.user:
     name: "{{ ansible_user }}"
-    shell: /bin/zsh
-
-- name: Make ZSH default shell (Linux)
-  when: ansible_facts['os_family'] != 'Darwin'
-  become: true
-  ansible.builtin.user:
-    name: "{{ ansible_user }}"
-    shell: /usr/bin/zsh
+    shell: "{{ '/bin/zsh' if ansible_facts['os_family'] == 'Darwin' else '/usr/bin/zsh' }}"
