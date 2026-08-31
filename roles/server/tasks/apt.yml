@@ -3,7 +3,7 @@
   ansible.builtin.apt:
     update_cache: true
 
-- name: Install common packages
+- name: Install server packages
   become: true
   ansible.builtin.apt:
     name: "{{ pkgs_server_apt }}"
