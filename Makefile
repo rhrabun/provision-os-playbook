@@ -3,8 +3,11 @@
 .PHONY: help run run-tag dry-run dry-run-tag install
 .DEFAULT_GOAL := help
 
-# Host or host group to target, from inventory (e.g. `make run HOST=web01`)
-HOST ?= personal
+# Host or host group to target, from inventory
+host ?= personal
+
+# Prompt for SSH password only for remote hosts
+ASK_PASS := $(if $(filter personal,$(host)),,--ask-pass)
 
 UNAME_S := $(shell uname -s)
 
@@ -24,15 +27,14 @@ install: ## Install Ansible and dependencies
 	$(INSTALL_CMD) ansible
 	ansible --version
 
-run: ## Run Ansible playbook for host or host group (e.g. `make run HOST=web01`)
-	ansible-playbook playbook.yml --limit $(HOST) --ask-become-pass
+run: ## Run Ansible playbook for host or host group (e.g. `make run host=vps`)
+	ansible-playbook playbook.yml --limit $(host) --ask-become-pass $(ASK_PASS)
 
 run-tag: ## Run Ansible playbook with specific tag (e.g. `make run-tag tag=terminal`)
-	ansible-playbook playbook.yml --limit $(HOST) --ask-become-pass -t $(tag)
+	ansible-playbook playbook.yml --limit $(host) --ask-become-pass $(ASK_PASS) -t $(tag)
 
 dry-run: ## Dry-run Ansible playbook
-	ansible-playbook playbook.yml --check --diff --limit $(HOST) --ask-become-pass
+	ansible-playbook playbook.yml --check --diff --limit $(host) --ask-become-pass $(ASK_PASS)
 
 dry-run-tag: ## Dry-run Ansible playbook with specific tag (e.g. `make run-tag tag=terminal`)
-	ansible-playbook playbook.yml --check --diff --limit $(HOST) --ask-become-pass -t $(tag)
-
+	ansible-playbook playbook.yml --check --diff --limit $(host) --ask-become-pass $(ASK_PASS) -t $(tag)
