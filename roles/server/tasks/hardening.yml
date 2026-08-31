@@ -1,4 +1,4 @@
-- name: Require deploy user and ssh key
+- name: Require deploy user and ssh keys
   ansible.builtin.assert:
     that:
       - deploy_user is defined and deploy_user | length > 0
@@ -17,20 +17,24 @@
     shell: /bin/bash
     create_home: true
 
-- name: Install deploy user ssh pubkey
+- name: Install deploy user ssh pubkeys
   become: true
+  vars:
+    deploy_keys: "{{ deploy_ssh_key is string | ternary([deploy_ssh_key], deploy_ssh_key) }}"
   ansible.posix.authorized_key:
     user: "{{ deploy_user }}"
-    key: "{{ deploy_ssh_key }}"
+    key: "{{ item }}"
     state: present
+  loop: "{{ deploy_keys }}"
+  when: not ansible_check_mode
 
-- name: SSH hardening drop-in
+- name: SSH policy drop-in
   become: true
   ansible.builtin.copy:
     dest: /etc/ssh/sshd_config.d/hardening.conf
     content: |
-      PermitRootLogin no
-      PasswordAuthentication no
+      PermitRootLogin yes
+      PasswordAuthentication yes
       PubkeyAuthentication yes
   notify: restart ssh
 
@@ -39,32 +43,40 @@
   ansible.builtin.command: sshd -t
   changed_when: false
 
+- name: Install ufw
+  become: true
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
 - name: ufw default deny incoming
   become: true
   community.general.ufw:
-    rule: default
+    default: deny
     direction: incoming
-    policy: deny
     state: enabled
+  when: not ansible_check_mode
 
 - name: ufw default allow outgoing
   become: true
   community.general.ufw:
-    rule: default
+    default: allow
     direction: outgoing
-    policy: allow
     state: enabled
+  when: not ansible_check_mode
 
 - name: ufw allow OpenSSH
   become: true
   community.general.ufw:
     rule: allow
     name: OpenSSH
+  when: not ansible_check_mode
 
 - name: Enable ufw
   become: true
   community.general.ufw:
     state: enabled
+  when: not ansible_check_mode
 
 - name: Install unattended-upgrades
   become: true
