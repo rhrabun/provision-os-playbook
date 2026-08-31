@@ -8,12 +8,11 @@
       in role vars or inventory, e.g.
       -e deploy_user=roman -e deploy_ssh_key='ssh-ed25519 AAAA...'
 
-- name: Create deploy user and grant sudo
+- name: Create deploy user
   become: true
   ansible.builtin.user:
     name: "{{ deploy_user }}"
-    groups: sudo
-    append: true
+    groups: []
     shell: /bin/bash
     create_home: true
 
