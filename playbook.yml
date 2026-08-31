@@ -45,6 +45,7 @@
       tags: server
 
     - role: terminal
+      when: profile == 'personal'
       tags: terminal
 
     - role: system

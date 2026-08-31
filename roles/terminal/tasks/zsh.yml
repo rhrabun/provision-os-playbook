@@ -1,18 +1,29 @@
-- name: Create ZSH cache directory
-  ansible.builtin.file:
-    path: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh"
-    state: directory
-    mode: '700'
+- name: Configure ZSH for the target user
+  vars:
+    zsh_user: "{{ deploy_user | default(ansible_user) }}"
+    zsh_home: "{{ ansible_facts['env']['HOME'] if ansible_facts['os_family'] == 'Darwin' else '/home/' + zsh_user }}"
+  block:
+    - name: Create ZSH cache directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ zsh_home }}/.cache/zsh"
+        state: directory
+        mode: '700'
+        owner: "{{ zsh_user }}"
+        group: "{{ zsh_user }}"
 
-- name: Create ZSH history file
-  ansible.builtin.copy:
-    content: ""
-    dest: "{{ ansible_facts['env']['HOME'] }}/.cache/zsh/history"
-    force: false
-    mode: '600'
+    - name: Create ZSH history file
+      become: true
+      ansible.builtin.copy:
+        content: ""
+        dest: "{{ zsh_home }}/.cache/zsh/history"
+        force: false
+        mode: '600'
+        owner: "{{ zsh_user }}"
+        group: "{{ zsh_user }}"
 
-- name: Make ZSH default shell
-  become: true
-  ansible.builtin.user:
-    name: "{{ ansible_user }}"
-    shell: "{{ '/bin/zsh' if ansible_facts['os_family'] == 'Darwin' else '/usr/bin/zsh' }}"
+    - name: Make ZSH default shell
+      become: true
+      ansible.builtin.user:
+        name: "{{ zsh_user }}"
+        shell: "{{ '/bin/zsh' if ansible_facts['os_family'] == 'Darwin' else '/usr/bin/zsh' }}"
