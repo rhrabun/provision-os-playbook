@@ -6,5 +6,8 @@
 - name: Install common packages
   become: true
   ansible.builtin.apt:
-    name: "{{ pkgs_common }}"
+    name: "{{ pkgs_server_apt }}"
     state: present
+
+- name: Install non-distro tools
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/bin.yml"

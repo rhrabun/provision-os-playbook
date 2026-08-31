@@ -20,6 +20,11 @@
       ansible.builtin.include_vars:
         file: "vars/linux.yml"
 
+    - name: Include server-specific vars
+      when: profile == 'servers'
+      ansible.builtin.include_vars:
+        file: "vars/server.yml"
+
     - name: Verify become access
       block:
         - name: Test sudo with become password

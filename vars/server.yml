@@ -1,6 +1,6 @@
 ---
 
-# Server (debian) curated package set (zellij installed via bin.yml prebuilt binary)
+# Server curated package set
 pkgs_server_apt:
   - gh
   - git
@@ -13,7 +13,7 @@ pkgs_server_apt:
   - zoxide
   - lazygit
 
-# zellij release binary (unknown-linux-musl, static)
+# zellij
 zellij_release: v0.45.1
 zellij_checksum:
   x86_64: 40bcc2e03f5d5ae8e054e39f676081fe12ab70871506996ba595834c3718eefc

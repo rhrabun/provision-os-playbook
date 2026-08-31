@@ -1,12 +1,5 @@
 ---
 
-pkgs_apt:
-  - fd-find
-
-pkgs_pacman:
-  - fd
-  - mise
-
 # Installed by both apt and pacman
 pkgs_common:
   - gh
@@ -23,3 +16,10 @@ pkgs_common:
   - ripgrep
   - lazygit
   - lazydocker
+
+pkgs_apt:
+  - fd-find
+
+pkgs_pacman:
+  - fd
+  - mise

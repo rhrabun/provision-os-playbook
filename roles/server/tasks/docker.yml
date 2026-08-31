@@ -5,6 +5,7 @@
       - ca-certificates
       - curl
       - gnupg
+      - python3-debian
     state: present
 
 - name: Add docker gpg key
@@ -19,11 +20,12 @@
   ansible.builtin.deb822_repository:
     name: docker-ce
     types: [deb]
-    uris: "https://download.docker.com/linux/{{ ansible_distribution | lower }}"
-    suites: ["{{ ansible_distribution_release }}"]
+    uris: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}"
+    suites: ["{{ ansible_facts['distribution_release'] }}"]
     components: [stable]
     signed_by: /etc/apt/keyrings/docker.asc
     state: present
+  when: not ansible_check_mode
 
 - name: Install docker-ce + compose plugin
   become: true
@@ -35,6 +37,7 @@
       - docker-compose-plugin
     state: present
     update_cache: true
+  when: not ansible_check_mode
 
 - name: Capture /etc/docker dir state
   become: true
@@ -57,6 +60,7 @@
     name: "{{ deploy_user }}"
     groups: docker
     append: true
+  when: not ansible_check_mode
 
 - name: Start docker service
   become: true
@@ -64,3 +68,4 @@
     name: docker
     state: started
     enabled: true
+  when: not ansible_check_mode
