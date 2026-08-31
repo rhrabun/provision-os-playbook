@@ -1,0 +1,22 @@
+---
+
+# Server (debian) curated package set (zellij installed via bin.yml prebuilt binary)
+pkgs_server_apt:
+  - gh
+  - git
+  - make
+  - vim
+  - fzf
+  - bat
+  - btop
+  - ripgrep
+  - zoxide
+  - lazygit
+
+# zellij release binary (unknown-linux-musl, static)
+zellij_release: v0.45.1
+zellij_checksum:
+  x86_64: 40bcc2e03f5d5ae8e054e39f676081fe12ab70871506996ba595834c3718eefc
+  aarch64: 05f0802afadd53f8db9514e7cae53c9ae8432fed1b35b8294aa816ee3044a16b
+# zellij asset naming: amd64 -> x86_64, arm64 -> aarch64
+zellij_arch: "{{ 'aarch64' if ansible_facts['architecture'] == 'arm64' else (ansible_facts['architecture'] | replace('amd64', 'x86_64')) }}"
