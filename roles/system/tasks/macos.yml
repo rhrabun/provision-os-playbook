@@ -1,6 +1,6 @@
 - name: Ensure Screenshots directory exists
   ansible.builtin.file:
-    path: "{{ ansible_facts['env']['HOME'] }}/Pictures/Screenshots"
+    path: "{{ user_home }}/Pictures/Screenshots"
     state: directory
 
 - name: Configure Finder preferences

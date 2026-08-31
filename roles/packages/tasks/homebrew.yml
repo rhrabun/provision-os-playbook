@@ -10,12 +10,12 @@
 
 - name: Install CLI utilities
   community.general.homebrew:
-    name: "{{ cli_tools }}"
+    name: "{{ brew_formulae }}"
     state: present
 
 - name: Install GUI applications (Casks)
   community.general.homebrew_cask:
-    name: "{{ apps }}"
+    name: "{{ brew_casks }}"
     state: present
 
 - name: Install Mac App Store applications

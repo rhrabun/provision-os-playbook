@@ -1,8 +1,8 @@
 ---
 
-# taps:
+# brew_taps:
 
-cli_tools:
+brew_formulae:
   - fd
   - gh
   - uv
@@ -25,7 +25,7 @@ cli_tools:
   - opencode
   - pre-commit
 
-apps:
+brew_casks:
   - zen
   - vlc
   - lulu
@@ -155,7 +155,7 @@ system_settings:
     - { domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: bool, value: "true" }
 
     # Save screenshots to the Screenshots folder 
-    - { domain: com.apple.screencapture, key: location, type: string, value: "{{ lookup('env', 'HOME') }}/Pictures/Screenshots" }
+    - { domain: com.apple.screencapture, key: location, type: string, value: "{{ user_home }}/Pictures/Screenshots" }
     # Save screenshots in JPG format (other options: BMP, GIF, JPG, PDF, TIFF)
     - { domain: com.apple.screencapture, key: type, type: string, value: "JPG" }
     # Disable shadow in screenshots

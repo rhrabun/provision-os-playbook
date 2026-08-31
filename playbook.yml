@@ -25,6 +25,10 @@
       ansible.builtin.include_vars:
         file: "vars/server.yml"
 
+    - name: Resolve deploy user home directory
+      ansible.builtin.set_fact:
+        user_home: "{{ ansible_facts['env']['HOME'] if ansible_facts['os_family'] == 'Darwin' else '/home/' + (deploy_user | default(ansible_user)) }}"
+
     - name: Verify become access
       block:
         - name: Test sudo with become password
@@ -51,3 +55,12 @@
     - role: system
       when: profile == 'personal'
       tags: system
+
+  tasks:
+    - name: Create code directory
+      ansible.builtin.file:
+        path: "{{ user_home }}/code"
+        state: directory
+        owner: "{{ deploy_user | default(ansible_user) }}"
+        group: "{{ deploy_user | default(ansible_user) }}"
+        mode: "0755"

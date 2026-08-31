@@ -1,7 +1,7 @@
 - name: Configure ZSH for the target user
   vars:
     zsh_user: "{{ deploy_user | default(ansible_user) }}"
-    zsh_home: "{{ ansible_facts['env']['HOME'] if ansible_facts['os_family'] == 'Darwin' else '/home/' + zsh_user }}"
+    zsh_home: "{{ user_home }}"
   block:
     - name: Create ZSH cache directory
       become: true
