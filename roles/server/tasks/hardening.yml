@@ -3,10 +3,21 @@
     that:
       - deploy_user is defined and deploy_user | length > 0
       - deploy_ssh_key is defined and deploy_ssh_key | length > 0
+      - root_ssh_key is defined and root_ssh_key | length > 0
     fail_msg: >-
-      missing var for {{ inventory_hostname }}. Set deploy_user and deploy_ssh_key
+      missing var for {{ inventory_hostname }}. Set deploy_user, deploy_ssh_key and root_ssh_key
       in role vars or inventory, e.g.
-      -e deploy_user=roman -e deploy_ssh_key='ssh-ed25519 AAAA...'
+      -e deploy_user=roman -e deploy_ssh_key='ssh-ed25519 AAAA...' -e root_ssh_key='ssh-ed25519 AAAA...'
+
+- name: Install root ssh pubkeys
+  become: true
+  vars:
+    root_keys: "{{ root_ssh_key is string | ternary([root_ssh_key], root_ssh_key) }}"
+  ansible.posix.authorized_key:
+    user: root
+    key: "{{ item }}"
+    state: present
+  loop: "{{ root_keys }}"
 
 - name: Create deploy user
   become: true
@@ -33,7 +44,7 @@
     dest: /etc/ssh/sshd_config.d/hardening.conf
     content: |
       PermitRootLogin yes
-      PasswordAuthentication yes
+      PasswordAuthentication no
       PubkeyAuthentication yes
   notify: restart ssh
 

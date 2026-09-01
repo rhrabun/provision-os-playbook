@@ -17,6 +17,9 @@ all:
           ansible_host: <ip>
           ansible_user: <user>
           deploy_user: <deploy-username>
+          root_ssh_key:
+            - "<ssh-ed25519 pubkey>"
+            - "<ssh-ed25519 pubkey mobile>"
           deploy_ssh_key:
             - "<ssh-ed25519 pubkey>"
             - "<ssh-ed25519 pubkey mobile>"
@@ -24,6 +27,9 @@ all:
           ansible_host: <ip>
           ansible_user: <user>
           deploy_user: <deploy-username>
+          root_ssh_key:
+            - "<ssh-ed25519 pubkey>"
+            - "<ssh-ed25519 pubkey mobile>"
           deploy_ssh_key:
             - "<ssh-ed25519 pubkey>"
             - "<ssh-ed25519 pubkey mobile>"
