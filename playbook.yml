@@ -62,5 +62,4 @@
         path: "{{ user_home }}/code"
         state: directory
         owner: "{{ deploy_user | default(ansible_user) }}"
-        group: "{{ deploy_user | default(ansible_user) }}"
         mode: "0755"

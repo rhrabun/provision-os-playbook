@@ -10,7 +10,6 @@
         state: directory
         mode: '700'
         owner: "{{ zsh_user }}"
-        group: "{{ zsh_user }}"
 
     - name: Create ZSH history file
       become: true
@@ -20,7 +19,6 @@
         force: false
         mode: '600'
         owner: "{{ zsh_user }}"
-        group: "{{ zsh_user }}"
 
     - name: Make ZSH default shell
       become: true
