@@ -1,2 +1,7 @@
 - name: restart dock
   ansible.builtin.command: killall Dock
+
+- name: restart ssh
+  ansible.builtin.systemd_service:
+    name: ssh
+    state: restarted

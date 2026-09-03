@@ -3,21 +3,16 @@
   community.general.pacman:
     update_cache: true
 
-- name: Upgrade system
+- name: Install CLI packages
   become: true
   community.general.pacman:
-    upgrade: true
-
-- name: Install packages
-  become: true
-  community.general.pacman:
-    name: "{{ pkgs_pacman }}"
+    name: "{{ pkgs_cli }}"
     state: present
 
-- name: Install common packages
+- name: Install extra packages
   become: true
   community.general.pacman:
-    name: "{{ pkgs_common }}"
+    name: "{{ pkgs_extra_pacman[profile] | default([]) }}"
     state: present
 
 - name: Remove unneeded dependencies

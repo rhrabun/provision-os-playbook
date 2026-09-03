@@ -14,7 +14,7 @@ EXTRA_FLAGS := $(filter-out run run-tag dry-run dry-run-tag install help,$(MAKEC
 
 UNAME_S := $(shell uname -s)
 
-# OS-specific 
+# OS-specific
 ifeq ($(UNAME_S),Darwin)
 	INSTALL_CMD := brew install
 else ifeq ($(UNAME_S),Linux)

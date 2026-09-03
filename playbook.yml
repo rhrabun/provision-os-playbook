@@ -7,7 +7,7 @@
       ansible.builtin.debug:
         var: ansible_facts
       tags: [never, facts]
-    
+
     # Ansible evaluates vars_files at playbook parse time (before facts are gathered),
     # so loading of OS-specific variables must be done when facts are available
     - name: Include Darwin-specific vars
@@ -19,11 +19,6 @@
       when: ansible_facts['os_family'] != 'Darwin'
       ansible.builtin.include_vars:
         file: "vars/linux.yml"
-
-    - name: Include server-specific vars
-      when: profile == 'servers'
-      ansible.builtin.include_vars:
-        file: "vars/server.yml"
 
     - name: Resolve deploy user home directory
       ansible.builtin.set_fact:
@@ -40,21 +35,15 @@
             msg: "Become failed: sudo password incorrect or unavailable. Re-run with a valid password."
 
   roles:
-    - role: packages
-      when: profile == 'personal'
-      tags: packages
+    - role: software
+      tags: software
 
-    - role: server
-      when: profile == 'servers'
-      tags: server
+    - role: system
+      tags: system
 
     - role: terminal
       when: profile == 'personal'
       tags: terminal
-
-    - role: system
-      when: profile == 'personal'
-      tags: system
 
   tasks:
     - name: Create code directory

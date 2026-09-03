@@ -8,17 +8,18 @@
   ansible.builtin.apt:
     name: "*"
     state: latest
+  when: software_update_all | default(false)
 
-- name: Install packages
+- name: Install CLI packages
   become: true
   ansible.builtin.apt:
-    name: "{{ pkgs_apt }}"
+    name: "{{ pkgs_cli }}"
     state: present
 
-- name: Install common packages
+- name: Install extra packages
   become: true
   ansible.builtin.apt:
-    name: "{{ pkgs_common }}"
+    name: "{{ pkgs_extra_apt[profile] | default([]) }}"
     state: present
 
 - name: Clean redundant packages and dependencies

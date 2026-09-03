@@ -1,3 +1,4 @@
+# Server hardening
 - name: Require deploy user and ssh keys
   ansible.builtin.assert:
     that:
@@ -53,52 +54,64 @@
   ansible.builtin.command: sshd -t
   changed_when: false
 
-- name: Install ufw
-  become: true
-  ansible.builtin.apt:
-    name: ufw
-    state: present
+- name: Configure ufw
+  block:
+    - name: Install ufw
+      become: true
+      ansible.builtin.package:
+        name: ufw
+        state: present
 
-- name: ufw default deny incoming
-  become: true
-  community.general.ufw:
-    default: deny
-    direction: incoming
-    state: enabled
-  when: not ansible_check_mode
+    - name: ufw default deny incoming
+      become: true
+      community.general.ufw:
+        default: deny
+        direction: incoming
+        state: enabled
+      when: not ansible_check_mode
 
-- name: ufw default allow outgoing
-  become: true
-  community.general.ufw:
-    default: allow
-    direction: outgoing
-    state: enabled
-  when: not ansible_check_mode
+    - name: ufw default allow outgoing
+      become: true
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+        state: enabled
+      when: not ansible_check_mode
 
-- name: ufw allow OpenSSH
-  become: true
-  community.general.ufw:
-    rule: allow
-    name: OpenSSH
-  when: not ansible_check_mode
+    - name: ufw allow OpenSSH
+      become: true
+      community.general.ufw:
+        rule: allow
+        name: OpenSSH
+      when: not ansible_check_mode
+    
+    - name: Allow tailnet interface
+      community.general.ufw:
+        rule: allow
+        interface: tailscale0
+        direction: in
+      when: not ansible_check_mode
 
-- name: Enable ufw
-  become: true
-  community.general.ufw:
-    state: enabled
-  when: not ansible_check_mode
+    - name: Enable ufw
+      become: true
+      community.general.ufw:
+        state: enabled
+      when: not ansible_check_mode
 
-- name: Install unattended-upgrades
-  become: true
-  ansible.builtin.apt:
-    name: unattended-upgrades
-    state: present
-    update_cache: true
+- name: Configure automatic security upgrades
+  when: ansible_facts['pkg_mgr'] == 'apt'
+  block:
+    - name: Install unattended-upgrades
+      become: true
+      ansible.builtin.apt:
+        name: unattended-upgrades
+        state: present
+        update_cache: true
 
-- name: Enable automatic security upgrades
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/apt/apt.conf.d/20auto-upgrades
-    content: |
-      APT::Periodic::Update-Package-Lists "1";
-      APT::Periodic::Unattended-Upgrade "1";
+    - name: Enable automatic security upgrades
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Unattended-Upgrade "1";

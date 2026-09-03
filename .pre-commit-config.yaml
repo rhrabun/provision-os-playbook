@@ -1,0 +1,27 @@
+default_stages: [pre-commit]
+fail_fast: false
+
+repos:
+  # General file fixers
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: detect-private-key
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: check-added-large-files
+
+  # Ansible
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v25.3.1
+    hooks:
+      - id: ansible-lint
+        always_run: false

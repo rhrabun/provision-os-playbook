@@ -1,25 +1,34 @@
 ---
 
-# Installed by both apt and pacman
-pkgs_common:
+# Base CLI toolset — every Linux host, apt + pacman
+pkgs_cli:
   - gh
-  - uv
   - zsh
   - fzf
   - bat
   - git
   - vim
-  - tlrc
   - btop
-  - zellij
+  - make
   - zoxide
   - ripgrep
-  - lazygit
-  - lazydocker
 
-pkgs_apt:
-  - fd-find
+pkgs_extra_apt:
+  personal:
+    - fd-find
+    - lazygit
+    - lazydocker
+pkgs_extra_pacman:
+  personal:
+    - fd
+    - mise
+    - lazygit
+    - lazydocker
 
-pkgs_pacman:
-  - fd
-  - mise
+# zellij
+zellij_release: v0.45.1
+zellij_checksum:
+  x86_64: 40bcc2e03f5d5ae8e054e39f676081fe12ab70871506996ba595834c3718eefc
+  aarch64: 05f0802afadd53f8db9514e7cae53c9ae8432fed1b35b8294aa816ee3044a16b
+# zellij asset naming: amd64 -> x86_64, arm64 -> aarch64
+zellij_arch: "{{ 'aarch64' if ansible_facts['architecture'] == 'arm64' else (ansible_facts['architecture'] | replace('amd64', 'x86_64')) }}"

@@ -1,0 +1,26 @@
+- name: Install Tailscale (macOS)
+  community.general.homebrew_cask:
+    name: tailscale-app
+    state: present
+  when: ansible_facts['pkg_mgr'] == 'homebrew'
+
+- name: Install Tailscale (Linux)
+  when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
+  block:
+    - name: Download Tailscale install script
+      ansible.builtin.get_url:
+        url: https://tailscale.com/install.sh
+        dest: /tmp/tailscale-install.sh
+        mode: "0755"
+
+    - name: Run Tailscale install script
+      become: true
+      ansible.builtin.command: /tmp/tailscale-install.sh
+
+    - name: Enable and start tailscaled
+      become: true
+      ansible.builtin.systemd_service:
+        name: tailscaled
+        enabled: true
+        state: started
+      when: not ansible_check_mode

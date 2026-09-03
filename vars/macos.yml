@@ -144,7 +144,7 @@ system_settings:
 
     # Show all filename extensions
     - { key: AppleShowAllExtensions, type: bool, value: true }
-  
+
   system: # Different domains for system-wide settings
     # Disable the “Are you sure you want to open this application?” dialog
     - { domain: com.apple.LaunchServices, key: LSQuarantine, type: bool, value: "false" }
@@ -155,7 +155,7 @@ system_settings:
     # Trackpad: enable tap to click and for the login screen
     - { domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: bool, value: "true" }
 
-    # Save screenshots to the Screenshots folder 
+    # Save screenshots to the Screenshots folder
     - { domain: com.apple.screencapture, key: location, type: string, value: "{{ user_home }}/Pictures/Screenshots" }
     # Save screenshots in JPG format (other options: BMP, GIF, JPG, PDF, TIFF)
     - { domain: com.apple.screencapture, key: type, type: string, value: "JPG" }

@@ -1,4 +1,7 @@
 - name: Configure macOS settings
   ansible.builtin.include_tasks: macos.yml
   when: ansible_facts['os_family'] == 'Darwin'
-  
+
+- name: Configure hardening
+  ansible.builtin.include_tasks: hardening.yml
+  when: profile == 'servers'
