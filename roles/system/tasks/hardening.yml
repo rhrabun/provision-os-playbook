@@ -24,7 +24,6 @@
   become: true
   ansible.builtin.user:
     name: "{{ deploy_user }}"
-    groups: []
     shell: /bin/bash
     create_home: true
 
