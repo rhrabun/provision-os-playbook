@@ -42,3 +42,37 @@
         dest: /usr/local/bin/herdr
         mode: "0755"
         checksum: "sha256:{{ herdr_checksum[linux_arch] }}"
+
+- name: Install chezmoi
+  when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
+  block:
+    - name: Create chezmoi install dir
+      become: true
+      ansible.builtin.file:
+        path: /usr/local/lib/chezmoi
+        state: directory
+
+    - name: Download chezmoi
+      become: true
+      ansible.builtin.get_url:
+        url: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_release }}/chezmoi_{{ chezmoi_release[1:] }}_linux_{{ chezmoi_arch }}.tar.gz"
+        dest: /usr/local/lib/chezmoi/chezmoi.tar.gz
+        checksum: "sha256:{{ chezmoi_checksum[chezmoi_arch] }}"
+
+    - name: Extract chezmoi
+      become: true
+      ansible.builtin.unarchive:
+        src: /usr/local/lib/chezmoi/chezmoi.tar.gz
+        dest: /usr/local/lib/chezmoi
+        remote_src: true
+        creates: /usr/local/lib/chezmoi/chezmoi
+      when: not ansible_check_mode
+
+    - name: Link chezmoi into PATH
+      become: true
+      ansible.builtin.file:
+        src: /usr/local/lib/chezmoi/chezmoi
+        dest: /usr/local/bin/chezmoi
+        state: link
+        force: yes
+      when: not ansible_check_mode
