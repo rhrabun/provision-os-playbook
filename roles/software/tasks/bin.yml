@@ -31,3 +31,14 @@
         dest: /usr/local/bin/zellij
         state: link
       when: not ansible_check_mode
+
+- name: Install herdr
+  when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
+  block:
+    - name: Download herdr
+      become: true
+      ansible.builtin.get_url:
+        url: "https://github.com/herdrdev/herdr/releases/download/{{ herdr_release }}/herdr-linux-{{ linux_arch }}"
+        dest: /usr/local/bin/herdr
+        mode: "0755"
+        checksum: "sha256:{{ herdr_checksum[linux_arch] }}"
