@@ -11,6 +11,7 @@ pkgs_cli:
   - btop
   - make
   - zoxide
+  - restic
   - ripgrep
 
 pkgs_extra_apt:
