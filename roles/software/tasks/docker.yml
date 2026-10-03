@@ -61,7 +61,8 @@
         dest: /etc/docker/daemon.json
         content: |
           { "log-driver": "json-file", "log-opts": { "max-size": "10m", "max-file": "3" } }
-      notify: restart docker
+        mode: "0644"
+      notify: Restart docker
 
     - name: Add deploy user to docker group
       become: true

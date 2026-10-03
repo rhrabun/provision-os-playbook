@@ -15,7 +15,9 @@
 
     - name: Run Tailscale install script
       become: true
-      ansible.builtin.command: /tmp/tailscale-install.sh
+      ansible.builtin.command:
+        cmd: /tmp/tailscale-install.sh
+        creates: /usr/bin/tailscale
 
     - name: Enable and start tailscaled
       become: true

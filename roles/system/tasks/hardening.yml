@@ -46,7 +46,8 @@
       PermitRootLogin yes
       PasswordAuthentication no
       PubkeyAuthentication yes
-  notify: restart ssh
+    mode: "0644"
+  notify: Restart ssh
 
 - name: Validate sshd configuration
   become: true
@@ -61,7 +62,7 @@
         name: ufw
         state: present
 
-    - name: ufw default deny incoming
+    - name: UFW default deny incoming
       become: true
       community.general.ufw:
         default: deny
@@ -69,7 +70,7 @@
         state: enabled
       when: not ansible_check_mode
 
-    - name: ufw default allow outgoing
+    - name: UFW default allow outgoing
       become: true
       community.general.ufw:
         default: allow
@@ -77,13 +78,13 @@
         state: enabled
       when: not ansible_check_mode
 
-    - name: ufw allow OpenSSH
+    - name: UFW allow OpenSSH
       become: true
       community.general.ufw:
         rule: allow
         name: OpenSSH
       when: not ansible_check_mode
-    
+
     - name: Allow tailnet interface
       community.general.ufw:
         rule: allow
@@ -114,3 +115,4 @@
         content: |
           APT::Periodic::Update-Package-Lists "1";
           APT::Periodic::Unattended-Upgrade "1";
+        mode: "0644"

@@ -7,6 +7,7 @@
       ansible.builtin.file:
         path: /usr/local/lib/zellij
         state: directory
+        mode: "0755"
 
     - name: Download zellij
       become: true
@@ -14,6 +15,7 @@
         url: "https://github.com/zellij-org/zellij/releases/download/{{ zellij_release }}/zellij-{{ linux_arch }}-unknown-linux-musl.tar.gz"
         dest: /usr/local/lib/zellij/zellij.tar.gz
         checksum: "sha256:{{ zellij_checksum[linux_arch] }}"
+        mode: "0644"
 
     - name: Extract zellij
       become: true
@@ -51,6 +53,7 @@
       ansible.builtin.file:
         path: /usr/local/lib/chezmoi
         state: directory
+        mode: "0755"
 
     - name: Download chezmoi
       become: true
@@ -58,6 +61,7 @@
         url: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_release }}/chezmoi_{{ chezmoi_release[1:] }}_linux_{{ chezmoi_arch }}.tar.gz"
         dest: /usr/local/lib/chezmoi/chezmoi.tar.gz
         checksum: "sha256:{{ chezmoi_checksum[chezmoi_arch] }}"
+        mode: "0644"
 
     - name: Extract chezmoi
       become: true
@@ -74,5 +78,5 @@
         src: /usr/local/lib/chezmoi/chezmoi
         dest: /usr/local/bin/chezmoi
         state: link
-        force: yes
+        force: true
       when: not ansible_check_mode

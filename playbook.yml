@@ -29,6 +29,7 @@
         - name: Test sudo with become password
           become: true
           ansible.builtin.command: whoami
+          changed_when: false
       rescue:
         - name: Report become failure
           ansible.builtin.fail:

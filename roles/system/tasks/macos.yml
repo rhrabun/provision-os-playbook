@@ -2,6 +2,7 @@
   ansible.builtin.file:
     path: "{{ user_home }}/Pictures/Screenshots"
     state: directory
+    mode: "0755"
 
 - name: Configure Finder preferences
   community.general.osx_defaults:
@@ -18,7 +19,7 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
   loop: "{{ system_settings.dock }}"
-  notify: restart dock
+  notify: Restart dock
 
 - name: Configure Global preferences
   community.general.osx_defaults:
