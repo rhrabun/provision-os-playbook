@@ -13,6 +13,7 @@ pkgs_cli:
   - zoxide
   - restic
   - ripgrep
+  - superfile
 
 pkgs_extra_apt:
   personal:

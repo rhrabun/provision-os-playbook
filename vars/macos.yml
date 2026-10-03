@@ -15,6 +15,7 @@ brew_formulae:
   - mole
   - btop
   - tlrc
+  - rsync
   - zellij
   - httpie
   - zoxide
@@ -23,6 +24,7 @@ brew_formulae:
   - chezmoi
   - ripgrep
   - opencode
+  - superfile
   - pre-commit
 
 brew_casks:
