@@ -47,6 +47,7 @@ brew_casks:
   - protonvpn
   - ente-auth
   - bitwarden
+  - font-inter
   - cryptomator
   - todoist-app
   - bettermouse
