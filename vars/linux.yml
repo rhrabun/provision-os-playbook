@@ -59,3 +59,11 @@ chezmoi_checksum:
   amd64: b597729b687af4488a848240134cb633de8ca0f04e0d26d48f400ee2ac338ffa
   arm64: abcb840401d3c1f2356e0f53f5d52aa10d10f572654d9626db9ad0ca4dc03355
 chezmoi_arch: "{{ 'arm64' if ansible_facts['architecture'] == 'arm64' else 'amd64' }}"
+
+# mise
+mise_release: v2026.10.6
+mise_checksum:
+  x64: 3f44343eebc7e0d6623bcea46e304864f02dff648edd75c82871b53cc697b366
+  arm64: 5f3187febbe9ff98e4c78b3596c7bbfde0e3ef8e4b1820494d03efd499de7b6e
+# binary asset naming: amd64 -> x64, arm64 -> arm64
+mise_arch: "{{ 'arm64' if ansible_facts['architecture'] == 'arm64' else 'x64' }}"

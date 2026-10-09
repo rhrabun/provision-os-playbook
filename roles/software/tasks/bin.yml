@@ -77,3 +77,13 @@
         state: link
         force: true
       when: not ansible_check_mode
+
+- name: Install mise
+  block:
+    - name: Download mise
+      become: true
+      ansible.builtin.get_url:
+        url: "https://github.com/jdx/mise/releases/download/{{ mise_release }}/mise-{{ mise_release }}-linux-{{ mise_arch }}"
+        dest: /usr/local/bin/mise
+        mode: "0755"
+        checksum: "sha256:{{ mise_checksum[mise_arch] }}"
