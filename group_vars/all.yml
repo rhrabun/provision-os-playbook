@@ -1,0 +1,4 @@
+---
+# Deploy user uses the system docker daemon (true: added to the docker group)
+# or a per-user rootless daemon (false: for tenants).
+docker_root: true
