@@ -63,8 +63,8 @@ herdr_checksum:
   aarch64: 4de7aa3e25678812e92960de64f7c2aaa1bca1f0f80a3c5e559837e231e1f5c0
 
 # chezmoi
-chezmoi_release: v2.72.1
+chezmoi_release: v2.73.0
 chezmoi_checksum:
-  amd64: 9f97d32caca166e5c92160ec3a9325519809c38963121cef38173142065c981f
-  arm64: 75508ef41216b6d64f3145986b751729d7f92d09c6bad77d51cf2895ab35a508
+  amd64: b597729b687af4488a848240134cb633de8ca0f04e0d26d48f400ee2ac338ffa
+  arm64: abcb840401d3c1f2356e0f53f5d52aa10d10f572654d9626db9ad0ca4dc03355
 chezmoi_arch: "{{ 'arm64' if ansible_facts['architecture'] == 'arm64' else 'amd64' }}"
