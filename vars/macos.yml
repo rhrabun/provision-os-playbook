@@ -1,7 +1,5 @@
 ---
 
-# brew_taps:
-
 brew_formulae:
   - fd
   - gh
