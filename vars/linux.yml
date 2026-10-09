@@ -13,10 +13,15 @@ pkgs_cli:
   - zoxide
   - restic
   - ripgrep
+  - uv
+  - httpie
+  - tealdeer
+  - pre-commit
 
 pkgs_extra_apt:
   personal:
     - fd-find
+    - mise
     - lazygit
     - lazydocker
 pkgs_extra_pacman:
@@ -25,6 +30,36 @@ pkgs_extra_pacman:
     - mise
     - lazygit
     - lazydocker
+
+# GUI apps — personal desktop only. Mirrors the macOS casks where the platform
+# allows it; macOS-only apps (lulu, aldente, bettermouse, ...) have no equivalent
+# and are left to the desktop environment (omarchy/Hyprland/fcitx5).
+pkgs_gui_apt:
+  personal:
+    - vlc
+    - telegram-desktop
+    # bitwarden, proton-vpn-gtk-app and zen-browser have no apt package; add via
+    # Flatpak if needed on an apt desktop.
+pkgs_gui_pacman:
+  personal:
+    - vlc
+    - telegram-desktop
+    - bitwarden
+    - proton-vpn-gtk-app
+    - zen-browser-bin
+
+# Fonts — personal desktop only, mirrors the macOS font casks
+pkgs_fonts_apt:
+  personal:
+    - fonts-inter
+    - fonts-firacode
+pkgs_fonts_pacman:
+  personal:
+    - inter-font
+    - ttf-firacode-nerd
+
+# Guard docker-published ports with ufw (root docker only)
+docker_ufw: true
 
 # zellij
 zellij_release: v0.45.1

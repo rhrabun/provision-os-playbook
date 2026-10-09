@@ -15,6 +15,18 @@
     name: "{{ pkgs_extra_pacman[profile] | default([]) }}"
     state: present
 
+- name: Install GUI packages
+  become: true
+  community.general.pacman:
+    name: "{{ pkgs_gui_pacman[profile] | default([]) }}"
+    state: present
+
+- name: Install fonts
+  become: true
+  community.general.pacman:
+    name: "{{ pkgs_fonts_pacman[profile] | default([]) }}"
+    state: present
+
 - name: Remove unneeded dependencies
   become: true
   community.general.pacman:
