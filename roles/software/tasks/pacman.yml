@@ -12,7 +12,7 @@
 - name: Install extra packages
   become: true
   community.general.pacman:
-    name: "{{ (pkgs_extra[profile] | default([])) + (pkgs_extra_pacman[profile] | default([])) }}"
+    name: "{{ pkgs_extra_pacman[profile] | default([]) }}"
     state: present
 
 - name: Install GUI packages

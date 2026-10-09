@@ -2,8 +2,6 @@
 
 brew_formulae:
   - fd
-  - gh
-  - uv
   - vim
   - fzf
   - git
@@ -17,13 +15,11 @@ brew_formulae:
   - zellij
   - httpie
   - zoxide
-  - lazygit
   - ansible
   - chezmoi
   - ripgrep
   - opencode
   - superfile
-  - pre-commit
 
 brew_casks:
   - zen

@@ -19,7 +19,7 @@
 - name: Install extra packages
   become: true
   ansible.builtin.apt:
-    name: "{{ (pkgs_extra[profile] | default([])) + (pkgs_extra_apt[profile] | default([])) }}"
+    name: "{{ pkgs_extra_apt[profile] | default([]) }}"
     state: present
 
 - name: Install GUI packages

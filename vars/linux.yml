@@ -2,7 +2,6 @@
 
 # Base CLI toolset — every Linux host, apt + pacman
 pkgs_cli:
-  - gh
   - zsh
   - fzf
   - bat
@@ -13,17 +12,9 @@ pkgs_cli:
   - zoxide
   - restic
   - ripgrep
-  - uv
   - httpie
   - tealdeer
-  - pre-commit
 
-# Distro-agnostic, added on top of the per-distro lists below
-pkgs_extra:
-  personal:
-    - mise
-    - lazygit
-    - lazydocker
 pkgs_gui:
   personal:
     - vlc
