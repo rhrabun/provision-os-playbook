@@ -28,12 +28,6 @@
     name: "{{ pkgs_gui_apt[profile] | default([]) }}"
     state: present
 
-- name: Install fonts
-  become: true
-  ansible.builtin.apt:
-    name: "{{ pkgs_fonts_apt[profile] | default([]) }}"
-    state: present
-
 - name: Clean redundant packages and dependencies
   become: true
   ansible.builtin.apt:
