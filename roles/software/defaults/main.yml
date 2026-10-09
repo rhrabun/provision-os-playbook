@@ -1,0 +1,5 @@
+---
+# Docker daemon mode for the deploy user.
+#   root     - system docker daemon, deploy user added to the docker group.
+#   rootless - per-user dockerd, no docker group / root (for tenants).
+docker_mode: root
