@@ -9,44 +9,37 @@
     name: ufw
     state: present
 
-- name: UFW default deny incoming
+- name: Configure ufw
   become: true
-  community.general.ufw:
-    default: deny
-    direction: incoming
-    state: enabled
   when: not ansible_check_mode
+  block:
+    - name: UFW default deny incoming
+      community.general.ufw:
+        default: deny
+        direction: incoming
+        state: enabled
 
-- name: UFW default allow outgoing
-  become: true
-  community.general.ufw:
-    default: allow
-    direction: outgoing
-    state: enabled
-  when: not ansible_check_mode
+    - name: UFW default allow outgoing
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+        state: enabled
 
-- name: UFW allow OpenSSH
-  become: true
-  community.general.ufw:
-    rule: allow
-    name: OpenSSH
-  when:
-    - profile == 'servers'
-    - not ansible_check_mode
+    - name: UFW allow OpenSSH
+      community.general.ufw:
+        rule: allow
+        name: OpenSSH
+      when: profile == 'servers'
 
-- name: Allow tailnet interface
-  become: true
-  community.general.ufw:
-    rule: allow
-    interface: tailscale0
-    direction: in
-  when: not ansible_check_mode
+    - name: Allow tailnet interface
+      community.general.ufw:
+        rule: allow
+        interface: tailscale0
+        direction: in
 
-- name: Enable ufw
-  become: true
-  community.general.ufw:
-    state: enabled
-  when: not ansible_check_mode
+    - name: Enable ufw
+      community.general.ufw:
+        state: enabled
 
 - name: Configure ufw-docker
   when: docker_root
