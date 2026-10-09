@@ -26,3 +26,10 @@
         enabled: true
         state: started
       when: not ansible_check_mode
+
+    - name: Allow deploy user to manage Tailscale without sudo
+      become: true
+      ansible.builtin.command:
+        cmd: "tailscale set --operator={{ deploy_user | default(ansible_user) }}"
+      changed_when: false
+      when: not ansible_check_mode

@@ -1,18 +1,11 @@
-- name: Homebrew install
-  ansible.builtin.include_tasks: homebrew.yml
-  when: ansible_facts['pkg_mgr'] == 'homebrew'
-
-- name: APT install
-  ansible.builtin.include_tasks: apt.yml
-  when: ansible_facts['pkg_mgr'] == 'apt'
-
-- name: Pacman install
-  ansible.builtin.include_tasks: pacman.yml
-  when: ansible_facts['pkg_mgr'] == 'pacman'
+- name: Install packages
+  ansible.builtin.include_tasks: "{{ ansible_facts['pkg_mgr'] }}.yml"
+  tags: packages
 
 - name: Install non-distro tools
   ansible.builtin.include_tasks: bin.yml
   when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
+  tags: packages
 
 - name: Install Docker/OrbStack
   ansible.builtin.include_tasks: docker.yml

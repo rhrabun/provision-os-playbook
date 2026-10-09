@@ -1,6 +1,5 @@
 # Install tools shipped as prebuilt static binaries (not in distro repos)
 - name: Install zellij
-  when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
   block:
     - name: Create zellij install dir
       become: true
@@ -35,7 +34,6 @@
       when: not ansible_check_mode
 
 - name: Install herdr
-  when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
   block:
     - name: Download herdr
       become: true
@@ -46,7 +44,6 @@
         checksum: "sha256:{{ herdr_checksum[linux_arch] }}"
 
 - name: Install chezmoi
-  when: ansible_facts['pkg_mgr'] in ['apt', 'pacman']
   block:
     - name: Create chezmoi install dir
       become: true
@@ -80,3 +77,13 @@
         state: link
         force: true
       when: not ansible_check_mode
+
+- name: Install mise
+  block:
+    - name: Download mise
+      become: true
+      ansible.builtin.get_url:
+        url: "https://github.com/jdx/mise/releases/download/{{ mise_release }}/mise-{{ mise_release }}-linux-{{ mise_arch }}"
+        dest: /usr/local/bin/mise
+        mode: "0755"
+        checksum: "sha256:{{ mise_checksum[mise_arch] }}"

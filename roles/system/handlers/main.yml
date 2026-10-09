@@ -2,7 +2,8 @@
   ansible.builtin.command: killall Dock
   changed_when: true
 
-- name: Restart ssh
-  ansible.builtin.systemd_service:
-    name: ssh
-    state: restarted
+- name: Reload ufw
+  become: true
+  ansible.builtin.command: ufw reload
+  changed_when: true
+  when: not ansible_check_mode

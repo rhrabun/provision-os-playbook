@@ -1,0 +1,65 @@
+---
+# Root docker writes host-wide DNAT rules that bypass ufw, so a container
+# published with -p stays reachable under `ufw default deny incoming`.
+# ufw-docker routes DOCKER-USER traffic back through ufw's filter chains.
+
+- name: Install ufw
+  become: true
+  ansible.builtin.package:
+    name: ufw
+    state: present
+
+- name: Configure ufw
+  become: true
+  when: not ansible_check_mode
+  block:
+    - name: UFW default deny incoming
+      community.general.ufw:
+        default: deny
+        direction: incoming
+        state: enabled
+
+    - name: UFW default allow outgoing
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+        state: enabled
+
+    - name: UFW allow OpenSSH
+      community.general.ufw:
+        rule: allow
+        name: OpenSSH
+      when: profile == 'servers'
+
+    - name: Allow tailnet interface
+      community.general.ufw:
+        rule: allow
+        interface: tailscale0
+        direction: in
+
+    - name: Enable ufw
+      community.general.ufw:
+        state: enabled
+
+- name: Configure ufw-docker
+  when: docker_root
+  block:
+    - name: Install ufw-docker
+      become: true
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/chaifeng/ufw-docker/master/ufw-docker
+        dest: /usr/local/bin/ufw-docker
+        mode: "0755"
+
+    - name: Check whether ufw-docker rules are already installed
+      ansible.builtin.command: grep -q ufw-docker /etc/ufw/after.rules
+      register: system_ufw_docker_rules
+      changed_when: false
+      failed_when: false
+
+    - name: Install ufw-docker rules
+      become: true
+      ansible.builtin.command: ufw-docker install
+      changed_when: true
+      when: system_ufw_docker_rules.rc != 0
+      notify: Reload ufw

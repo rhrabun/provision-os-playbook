@@ -1,2 +1,27 @@
-- name: Configure ZSH
-  ansible.builtin.include_tasks: zsh.yml
+- name: Configure ZSH for the target user
+  vars:
+    zsh_user: "{{ deploy_user | default(ansible_user) }}"
+    zsh_home: "{{ user_home }}"
+  block:
+    - name: Create ZSH cache directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ zsh_home }}/.cache/zsh"
+        state: directory
+        mode: '700'
+        owner: "{{ zsh_user }}"
+
+    - name: Create ZSH history file
+      become: true
+      ansible.builtin.copy:
+        content: ""
+        dest: "{{ zsh_home }}/.cache/zsh/history"
+        force: false
+        mode: '600'
+        owner: "{{ zsh_user }}"
+
+    - name: Make ZSH default shell
+      become: true
+      ansible.builtin.user:
+        name: "{{ zsh_user }}"
+        shell: "{{ '/bin/zsh' if ansible_facts['os_family'] == 'Darwin' else '/usr/bin/zsh' }}"

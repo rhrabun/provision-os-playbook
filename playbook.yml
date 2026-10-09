@@ -42,6 +42,10 @@
     - role: system
       tags: system
 
+    - role: hardening
+      when: profile == 'servers'
+      tags: hardening
+
     - role: terminal
       when: profile == 'personal'
       tags: terminal

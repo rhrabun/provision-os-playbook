@@ -2,7 +2,6 @@
 
 # Base CLI toolset — every Linux host, apt + pacman
 pkgs_cli:
-  - gh
   - zsh
   - fzf
   - bat
@@ -13,18 +12,32 @@ pkgs_cli:
   - zoxide
   - restic
   - ripgrep
+  - httpie
+  - tealdeer
+
+pkgs_gui:
+  personal:
+    - vlc
+    - telegram-desktop
 
 pkgs_extra_apt:
   personal:
     - fd-find
-    - lazygit
-    - lazydocker
 pkgs_extra_pacman:
   personal:
     - fd
-    - mise
-    - lazygit
-    - lazydocker
+
+pkgs_gui_apt:
+  personal:
+    - fonts-inter
+    - fonts-firacode
+pkgs_gui_pacman:
+  personal:
+    - bitwarden
+    - proton-vpn-gtk-app
+    - zen-browser-bin
+    - inter-font
+    - ttf-firacode-nerd
 
 # zellij
 zellij_release: v0.45.1
@@ -41,8 +54,16 @@ herdr_checksum:
   aarch64: 4de7aa3e25678812e92960de64f7c2aaa1bca1f0f80a3c5e559837e231e1f5c0
 
 # chezmoi
-chezmoi_release: v2.72.1
+chezmoi_release: v2.73.0
 chezmoi_checksum:
-  amd64: 9f97d32caca166e5c92160ec3a9325519809c38963121cef38173142065c981f
-  arm64: 75508ef41216b6d64f3145986b751729d7f92d09c6bad77d51cf2895ab35a508
+  amd64: b597729b687af4488a848240134cb633de8ca0f04e0d26d48f400ee2ac338ffa
+  arm64: abcb840401d3c1f2356e0f53f5d52aa10d10f572654d9626db9ad0ca4dc03355
 chezmoi_arch: "{{ 'arm64' if ansible_facts['architecture'] == 'arm64' else 'amd64' }}"
+
+# mise
+mise_release: v2026.10.6
+mise_checksum:
+  x64: 3f44343eebc7e0d6623bcea46e304864f02dff648edd75c82871b53cc697b366
+  arm64: 5f3187febbe9ff98e4c78b3596c7bbfde0e3ef8e4b1820494d03efd499de7b6e
+# binary asset naming: amd64 -> x64, arm64 -> arm64
+mise_arch: "{{ 'arm64' if ansible_facts['architecture'] == 'arm64' else 'x64' }}"
