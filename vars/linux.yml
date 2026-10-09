@@ -18,29 +18,30 @@ pkgs_cli:
   - tealdeer
   - pre-commit
 
-pkgs_extra_apt:
+# Distro-agnostic, added on top of the per-distro lists below
+pkgs_extra:
   personal:
-    - fd-find
     - mise
     - lazygit
     - lazydocker
-pkgs_extra_pacman:
-  personal:
-    - fd
-    - mise
-    - lazygit
-    - lazydocker
-
-pkgs_gui_apt:
+pkgs_gui:
   personal:
     - vlc
     - telegram-desktop
+
+pkgs_extra_apt:
+  personal:
+    - fd-find
+pkgs_extra_pacman:
+  personal:
+    - fd
+
+pkgs_gui_apt:
+  personal:
     - fonts-inter
     - fonts-firacode
 pkgs_gui_pacman:
   personal:
-    - vlc
-    - telegram-desktop
     - bitwarden
     - proton-vpn-gtk-app
     - zen-browser-bin
