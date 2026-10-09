@@ -5,3 +5,10 @@
 - name: Configure hardening
   ansible.builtin.include_tasks: hardening.yml
   when: profile == 'servers'
+
+- name: Configure ufw-docker
+  ansible.builtin.include_tasks: ufw-docker.yml
+  when:
+    - docker_ufw | default(true)
+    - docker_root | default(true)
+    - ansible_facts['pkg_mgr'] in ['apt', 'pacman']
