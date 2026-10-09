@@ -60,7 +60,7 @@
           - docker-compose
         state: present
 
-- name: Capture /etc/docker dir state
+- name: Create /etc/docker dir
   become: true
   ansible.builtin.file:
     path: /etc/docker
@@ -81,7 +81,7 @@
 - name: Add deploy user to docker group
   become: true
   ansible.builtin.user:
-    name: "{{ deploy_user }}"
+    name: "{{ deploy_user | default(ansible_user) }}"
     groups: docker
     append: true
   when:
@@ -100,18 +100,14 @@
     - ansible_facts['pkg_mgr'] in ['apt', 'pacman']
     - not ansible_check_mode
 
+# Rootless on Arch is intentionally unsupported: the official docker package lacks
+# dockerd-rootless-setuptool.sh and the extras ship only as the AUR package
+# docker-rootless-extras, which this playbook does not use.
 - name: Set up rootless docker
   when:
     - not docker_root
-    - ansible_facts['pkg_mgr'] in ['apt', 'pacman']
+    - ansible_facts['pkg_mgr'] == 'apt'
   block:
-    - name: Assert rootless docker is available on this platform
-      ansible.builtin.assert:
-        that: ansible_facts['pkg_mgr'] == 'apt'
-        fail_msg: >-
-          Rootless docker (docker_root=false) is only supported on apt hosts: the
-          Arch docker package does not ship dockerd-rootless-setuptool.sh.
-
     - name: Create deploy user
       become: true
       ansible.builtin.user:
