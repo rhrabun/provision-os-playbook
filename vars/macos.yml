@@ -49,7 +49,6 @@ brew_casks:
   - proton-pass
   - proton-drive
   - google-drive
-  - balenaetcher
   - betterdisplay
   - telegram-desktop
   - input-source-pro
@@ -60,7 +59,6 @@ brew_casks:
   - font-fira-code-nerd-font
 
 mas_apps:
-  - { name: "UpNote", id: 1398373917 }
   - { name: "AdGuard Mini", id: 1440147259 }
 
 # macOS system settings
