@@ -1,89 +1,30 @@
 # Install tools shipped as prebuilt static binaries (not in distro repos)
-- name: Install zellij
-  block:
-    - name: Create zellij install dir
-      become: true
-      ansible.builtin.file:
-        path: /usr/local/lib/zellij
-        state: directory
-        mode: "0755"
-
-    - name: Download zellij
-      become: true
-      ansible.builtin.get_url:
-        url: "https://github.com/zellij-org/zellij/releases/download/{{ zellij_release }}/zellij-{{ linux_arch }}-unknown-linux-musl.tar.gz"
-        dest: /usr/local/lib/zellij/zellij.tar.gz
-        checksum: "sha256:{{ zellij_checksum[linux_arch] }}"
-        mode: "0644"
-
-    - name: Extract zellij
-      become: true
-      ansible.builtin.unarchive:
-        src: /usr/local/lib/zellij/zellij.tar.gz
-        dest: /usr/local/lib/zellij
-        remote_src: true
-        creates: /usr/local/bin/zellij
-      when: not ansible_check_mode
-
-    - name: Link zellij into PATH
-      become: true
-      ansible.builtin.file:
-        src: /usr/local/lib/zellij/zellij
-        dest: /usr/local/bin/zellij
-        state: link
-      when: not ansible_check_mode
-
-- name: Install herdr
-  block:
-    - name: Download herdr
-      become: true
-      ansible.builtin.get_url:
-        url: "https://github.com/herdrdev/herdr/releases/download/{{ herdr_release }}/herdr-linux-{{ linux_arch }}"
-        dest: /usr/local/bin/herdr
-        mode: "0755"
-        checksum: "sha256:{{ herdr_checksum[linux_arch] }}"
-
 - name: Install chezmoi
-  block:
-    - name: Create chezmoi install dir
-      become: true
-      ansible.builtin.file:
-        path: /usr/local/lib/chezmoi
-        state: directory
-        mode: "0755"
+  become: true
+  ansible.builtin.shell:
+    cmd: set -o pipefail && curl -fsSL https://get.chezmoi.io | sh -s -- -b /usr/local/bin
+    executable: /bin/bash
+  args:
+    creates: /usr/local/bin/chezmoi
 
-    - name: Download chezmoi
-      become: true
-      ansible.builtin.get_url:
-        url: "https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_release }}/chezmoi_{{ chezmoi_release[1:] }}_linux_{{ chezmoi_arch }}.tar.gz"
-        dest: /usr/local/lib/chezmoi/chezmoi.tar.gz
-        checksum: "sha256:{{ chezmoi_checksum[chezmoi_arch] }}"
-        mode: "0644"
-
-    - name: Extract chezmoi
-      become: true
-      ansible.builtin.unarchive:
-        src: /usr/local/lib/chezmoi/chezmoi.tar.gz
-        dest: /usr/local/lib/chezmoi
-        remote_src: true
-        creates: /usr/local/lib/chezmoi/chezmoi
-      when: not ansible_check_mode
-
-    - name: Link chezmoi into PATH
-      become: true
-      ansible.builtin.file:
-        src: /usr/local/lib/chezmoi/chezmoi
-        dest: /usr/local/bin/chezmoi
-        state: link
-        force: true
-      when: not ansible_check_mode
+- name: Update chezmoi
+  become: true
+  ansible.builtin.command:
+    cmd: /usr/local/bin/chezmoi upgrade
+  register: chezmoi_upgrade
+  changed_when: "'already at the latest version' not in chezmoi_upgrade.stdout"
 
 - name: Install mise
-  block:
-    - name: Download mise
-      become: true
-      ansible.builtin.get_url:
-        url: "https://github.com/jdx/mise/releases/download/{{ mise_release }}/mise-{{ mise_release }}-linux-{{ mise_arch }}"
-        dest: /usr/local/bin/mise
-        mode: "0755"
-        checksum: "sha256:{{ mise_checksum[mise_arch] }}"
+  become: true
+  ansible.builtin.shell:
+    cmd: set -o pipefail && curl -fsSL https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh
+    executable: /bin/bash
+  args:
+    creates: /usr/local/bin/mise
+
+- name: Update mise
+  become: true
+  ansible.builtin.command:
+    cmd: /usr/local/bin/mise self-update --yes --no-plugins
+  register: mise_update
+  changed_when: "'already up to date' not in mise_update.stdout"
