@@ -13,4 +13,5 @@
 
 - name: Install Tailscale
   ansible.builtin.include_tasks: tailscale.yml
+  when: profile in ['personal', 'server'] or 'tailscale' in ansible_run_tags
   tags: tailscale

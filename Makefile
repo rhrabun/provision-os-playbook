@@ -7,7 +7,7 @@
 	@:
 
 # Host or host group to target, from inventory
-host ?= personal
+host ?= current
 
 # Forward extra goals/flags (e.g. `make run -- --ask-pass`) to every recipe
 EXTRA_FLAGS := $(filter-out run run-tag dry-run dry-run-tag install help,$(MAKECMDGOALS))

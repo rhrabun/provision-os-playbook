@@ -22,6 +22,30 @@
         file: "vars/linux.yml"
       tags: always
 
+    - name: Validate profile
+      ansible.builtin.assert:
+        that:
+          - profile is defined
+          - profile in ['personal', 'dev', 'server']
+        fail_msg: "profile must be one of: personal, dev, server (got '{{ profile | default('<undefined>') }}')"
+      tags: always
+
+    - name: Personal hosts must run macOS
+      ansible.builtin.assert:
+        that: ansible_facts['os_family'] == 'Darwin'
+        fail_msg: "profile 'personal' is macOS-only; {{ inventory_hostname }} is {{ ansible_facts['os_family'] }}"
+      when: profile == 'personal'
+      tags: always
+
+    - name: Servers must run Linux with apt
+      ansible.builtin.assert:
+        that:
+          - ansible_facts['os_family'] != 'Darwin'
+          - ansible_facts['pkg_mgr'] == 'apt'
+        fail_msg: "profile 'server' is Linux/apt-only; {{ inventory_hostname }} is {{ ansible_facts['os_family'] }}/{{ ansible_facts['pkg_mgr'] }}"
+      when: profile == 'server'
+      tags: always
+
     - name: Resolve deploy user home directory
       ansible.builtin.set_fact:
         user_home: "{{ ansible_facts['env']['HOME'] if ansible_facts['os_family'] == 'Darwin' else '/home/' + (deploy_user | default(ansible_user)) }}"
@@ -47,11 +71,11 @@
       tags: system
 
     - role: hardening
-      when: profile == 'servers'
+      when: profile == 'server'
       tags: hardening
 
     - role: terminal
-      when: profile == 'personal'
+      when: profile in ['personal', 'dev']
       tags: terminal
 
   tasks:

@@ -8,13 +8,20 @@
     name: "{{ brew_formulae }}"
     state: present
 
-- name: Install GUI applications (Casks)
+- name: Install dev GUI applications (Casks)
   community.general.homebrew_cask:
-    name: "{{ brew_casks }}"
+    name: "{{ brew_casks_dev }}"
     state: present
+
+- name: Install personal GUI applications (Casks)
+  community.general.homebrew_cask:
+    name: "{{ brew_casks_personal }}"
+    state: present
+  when: profile == 'personal'
 
 - name: Install Mac App Store applications
   community.general.mas:
     id: "{{ item.id }}"
     state: present
   loop: "{{ mas_apps }}"
+  when: profile == 'personal'

@@ -1,17 +1,19 @@
 all:
   children:
-    personal:
+    local:
       vars:
-        profile: personal
+        software_update_all: true
       hosts:
-        local:
+        current:
           ansible_host: localhost
           ansible_user: <username>
           ansible_connection: local
           ansible_host_key_checking: false
+          profile: personal # personal or dev
     servers:
       vars:
-        profile: servers
+        profile: server
+        software_update_all: false
       hosts:
         first-server:
           ansible_host: <ip>

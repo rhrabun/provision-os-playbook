@@ -6,19 +6,19 @@
 - name: Install CLI packages
   become: true
   community.general.pacman:
-    name: "{{ pkgs_cli }}"
+    name: "{{ base_packages }}"
     state: present
 
 - name: Install extra packages
   become: true
   community.general.pacman:
-    name: "{{ pkgs_extra_pacman[profile] | default([]) }}"
+    name: "{{ dev_packages_pacman }}"
     state: present
 
 - name: Install GUI packages
   become: true
   community.general.pacman:
-    name: "{{ (pkgs_gui[profile] | default([])) + (pkgs_gui_pacman[profile] | default([])) }}"
+    name: "{{ dev_gui_packages + dev_gui_packages_pacman }}"
     state: present
 
 - name: Remove unneeded dependencies

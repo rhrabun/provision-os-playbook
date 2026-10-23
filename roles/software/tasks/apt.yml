@@ -13,20 +13,62 @@
 - name: Install CLI packages
   become: true
   ansible.builtin.apt:
-    name: "{{ pkgs_cli }}"
+    name: "{{ base_packages }}"
     state: present
 
 - name: Install extra packages
   become: true
   ansible.builtin.apt:
-    name: "{{ pkgs_extra_apt[profile] | default([]) }}"
+    name: "{{ dev_packages_apt }}"
     state: present
+  when: profile == 'dev'
 
 - name: Install GUI packages
   become: true
   ansible.builtin.apt:
-    name: "{{ (pkgs_gui[profile] | default([])) + (pkgs_gui_apt[profile] | default([])) }}"
+    name: "{{ dev_gui_packages + dev_gui_packages_apt }}"
     state: present
+  when: profile == 'dev'
+
+# VS Code is not in the distro repos; use Microsoft's apt repo.
+- name: Install VS Code (apt)
+  when: profile == 'dev'
+  block:
+    - name: Install VS Code repo dependencies
+      become: true
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - python3-debian
+        state: present
+
+    - name: Add Microsoft GPG key
+      become: true
+      ansible.builtin.get_url:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        dest: /etc/apt/keyrings/microsoft.asc
+        mode: "0644"
+
+    - name: Add VS Code apt repo
+      become: true
+      ansible.builtin.deb822_repository:
+        name: vscode
+        types: [deb]
+        uris: https://packages.microsoft.com/repos/code
+        suites: [stable]
+        components: [main]
+        architectures: [amd64, arm64]
+        signed_by: /etc/apt/keyrings/microsoft.asc
+        state: present
+      when: not ansible_check_mode
+
+    - name: Install VS Code
+      become: true
+      ansible.builtin.apt:
+        name: code
+        state: present
+        update_cache: true
+      when: not ansible_check_mode
 
 - name: Clean redundant packages and dependencies
   become: true

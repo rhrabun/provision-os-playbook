@@ -1,7 +1,6 @@
 ---
 
-# Base CLI toolset — every Linux host, apt + pacman
-pkgs_cli:
+base_packages:
   - zsh
   - fzf
   - bat
@@ -16,26 +15,23 @@ pkgs_cli:
   - httpie
   - tealdeer
 
-pkgs_gui:
-  personal:
-    - vlc
-    - telegram-desktop
+dev_packages_apt:
+  - fd-find
+dev_packages_pacman:
+  - fd
 
-pkgs_extra_apt:
-  personal:
-    - fd-find
-pkgs_extra_pacman:
-  personal:
-    - fd
+dev_gui_packages:
+  - vlc
+  - telegram-desktop
 
-pkgs_gui_apt:
-  personal:
-    - fonts-inter
-    - fonts-firacode
-pkgs_gui_pacman:
-  personal:
-    - bitwarden
-    - proton-vpn-gtk-app
-    - zen-browser-bin
-    - inter-font
-    - ttf-firacode-nerd
+dev_gui_packages_apt:
+  - fonts-inter
+  - fonts-firacode
+
+dev_gui_packages_pacman:
+  - code
+  - bitwarden
+  - proton-vpn-gtk-app
+  - zen-browser-bin
+  - inter-font
+  - ttf-firacode-nerd

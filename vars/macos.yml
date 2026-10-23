@@ -1,5 +1,6 @@
 ---
 
+# Installed on every macOS host (personal + dev)
 brew_formulae:
   - fd
   - vim
@@ -22,7 +23,14 @@ brew_formulae:
   - opencode
   - superfile
 
-brew_casks:
+# Dev GUI apps (personal + dev)
+brew_casks_dev:
+  - ghostty
+  - visual-studio-code
+  - font-fira-code-nerd-font
+
+# Personal-only GUI apps
+brew_casks_personal:
   - zen
   - vlc
   - lulu
@@ -33,7 +41,6 @@ brew_casks:
   - anydesk
   - calibre
   - spotify
-  - ghostty
   - homerow
   - flux-app
   - obsidian
@@ -53,12 +60,11 @@ brew_casks:
   - betterdisplay
   - telegram-desktop
   - input-source-pro
-  - visual-studio-code
   - karabiner-elements
   - nvidia-geforce-now
   - cold-turkey-blocker
-  - font-fira-code-nerd-font
 
+# Personal-only Mac App Store apps
 mas_apps:
   - { name: "AdGuard Mini", id: 1440147259 }
 
