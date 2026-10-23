@@ -11,8 +11,8 @@
   become: true
   ansible.builtin.command:
     cmd: /usr/local/bin/chezmoi upgrade
-  register: chezmoi_upgrade
-  changed_when: "'already at the latest version' not in chezmoi_upgrade.stdout"
+  register: software_chezmoi_upgrade
+  changed_when: "'already at the latest version' not in software_chezmoi_upgrade.stdout"
 
 - name: Install mise
   become: true
@@ -26,5 +26,5 @@
   become: true
   ansible.builtin.command:
     cmd: /usr/local/bin/mise self-update --yes --no-plugins
-  register: mise_update
-  changed_when: "'already up to date' not in mise_update.stdout"
+  register: software_mise_update
+  changed_when: "'already up to date' not in software_mise_update.stdout"
