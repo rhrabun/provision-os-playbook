@@ -29,7 +29,6 @@
       community.general.ufw:
         rule: allow
         name: OpenSSH
-      when: profile == 'servers'
 
     - name: Allow tailnet interface
       community.general.ufw:
@@ -53,7 +52,7 @@
 
     - name: Check whether ufw-docker rules are already installed
       ansible.builtin.command: grep -q ufw-docker /etc/ufw/after.rules
-      register: system_ufw_docker_rules
+      register: hardening_ufw_docker_rules
       changed_when: false
       failed_when: false
 
@@ -61,5 +60,5 @@
       become: true
       ansible.builtin.command: ufw-docker install
       changed_when: true
-      when: system_ufw_docker_rules.rc != 0
+      when: hardening_ufw_docker_rules.rc != 0
       notify: Reload ufw

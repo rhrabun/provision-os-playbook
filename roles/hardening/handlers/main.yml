@@ -3,3 +3,9 @@
   ansible.builtin.systemd_service:
     name: "{{ 'sshd' if ansible_facts['os_family'] == 'Archlinux' else 'ssh' }}"
     state: restarted
+
+- name: Reload ufw
+  become: true
+  ansible.builtin.command: ufw reload
+  changed_when: true
+  when: not ansible_check_mode
