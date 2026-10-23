@@ -14,17 +14,21 @@
       when: ansible_facts['os_family'] == 'Darwin'
       ansible.builtin.include_vars:
         file: "vars/macos.yml"
+      tags: always
 
     - name: Include Linux-specific vars
       when: ansible_facts['os_family'] != 'Darwin'
       ansible.builtin.include_vars:
         file: "vars/linux.yml"
+      tags: always
 
     - name: Resolve deploy user home directory
       ansible.builtin.set_fact:
         user_home: "{{ ansible_facts['env']['HOME'] if ansible_facts['os_family'] == 'Darwin' else '/home/' + (deploy_user | default(ansible_user)) }}"
+      tags: always
 
     - name: Verify become access
+      tags: always
       block:
         - name: Test sudo with become password
           become: true
