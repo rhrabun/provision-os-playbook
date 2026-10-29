@@ -2,3 +2,7 @@
 - name: Configure the deploy user's shell
   ansible.builtin.include_tasks: zsh.yml
   when: profile in ['personal', 'dev']
+
+- name: Configure the root shell
+  ansible.builtin.include_tasks: root_bashrc.yml
+  when: profile == 'server'

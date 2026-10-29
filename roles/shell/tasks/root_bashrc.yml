@@ -1,0 +1,10 @@
+---
+- name: Install the root shell configuration
+  become: true
+  ansible.builtin.template:
+    src: root.bashrc.j2
+    dest: /root/.bashrc
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
