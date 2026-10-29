@@ -14,6 +14,7 @@ base_packages:
   - ripgrep
   - httpie
   - tealdeer
+  - starship
 
 dev_packages_apt:
   - fd-find
