@@ -1,0 +1,40 @@
+---
+- name: Validate the Rex mode
+  when: rex_mode != 'none'
+  ansible.builtin.assert:
+    that:
+      - rex_mode in ['none', 'personal', 'shared', 'login']
+    fail_msg: "rex_mode must be one of: none, personal, shared, login (got '{{ rex_mode }}')"
+
+- name: Look for the Rex binary
+  when: rex_mode != 'none'
+  ansible.builtin.stat:
+    path: /usr/bin/rex
+  register: rex_binary
+
+- name: Warn when the Rex package is missing
+  when:
+    - rex_mode != 'none'
+    - not rex_binary.stat.exists
+  ansible.builtin.debug:
+    msg: >-
+      rex_mode is '{{ rex_mode }}' but /usr/bin/rex is missing.
+      Skipping Rex setup; install the rex package first.
+
+- name: Configure the personal server
+  when:
+    - rex_mode == 'personal'
+    - rex_binary.stat.exists
+  ansible.builtin.include_tasks: personal.yml
+
+- name: Configure the shared server
+  when:
+    - rex_mode == 'shared'
+    - rex_binary.stat.exists
+  ansible.builtin.include_tasks: shared.yml
+
+- name: Configure the login server
+  when:
+    - rex_mode == 'login'
+    - rex_binary.stat.exists
+  ansible.builtin.include_tasks: login.yml

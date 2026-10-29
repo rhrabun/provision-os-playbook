@@ -70,6 +70,10 @@
     - role: system
       tags: system
 
+    - role: rex
+      when: ansible_facts['pkg_mgr'] == 'apt'
+      tags: rex
+
     - role: hardening
       when: profile == 'server'
       tags: hardening

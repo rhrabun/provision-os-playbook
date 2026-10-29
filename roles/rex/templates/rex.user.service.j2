@@ -1,0 +1,11 @@
+[Unit]
+Description=Rex personal server
+
+[Service]
+ExecStart=/usr/bin/rex server run \
+  {{ rex_server_flags | join(' \\\n  ') }}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

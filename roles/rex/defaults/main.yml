@@ -1,0 +1,24 @@
+---
+# How Rex runs on this host: personal, shared, login, or none.
+rex_mode: personal
+
+rex_tailnet_port: 7297
+rex_websocket_origin: https://rex.superlogical.com
+rex_log_format: text
+
+rex_server_flags:
+  - "--extra-listen tailnet://:{{ rex_tailnet_port }}"
+  - "--tailnet-allow-identified"
+  - "--websocket-origin-pattern {{ rex_websocket_origin }}"
+  - "--log-format {{ rex_log_format }}"
+
+rex_login_server_flags:
+  - "--extra-listen tailnet://:{{ rex_tailnet_port }}"
+
+rex_personal_user: "{{ deploy_user | default(ansible_user) }}"
+
+rex_shared_shell: /bin/bash
+
+rex_login_accounts: {}
+rex_login_defaults: {}
+rex_login_principals: []

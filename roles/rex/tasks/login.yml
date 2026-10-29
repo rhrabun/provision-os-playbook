@@ -1,0 +1,64 @@
+---
+- name: Stop the shared server
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex.service
+    enabled: false
+    state: stopped
+
+- name: Require login accounts
+  ansible.builtin.assert:
+    that:
+      - (rex_login_accounts | length) > 0 or (rex_login_principals | length) > 0
+    fail_msg: >-
+      Set rex_login_principals or rex_login_accounts in inventory.yml.
+      They are not kept in this repository.
+
+- name: Assemble the accounts file
+  ansible.builtin.set_fact:
+    rex_login_accounts_file: >-
+      {{ rex_login_accounts if (rex_login_accounts | length) > 0
+         else {rex_personal_user: {'principals': rex_login_principals}} }}
+    rex_login_defaults_file: >-
+      {{ rex_login_defaults if (rex_login_defaults | length) > 0
+         else ({rex_login_principals[0]: rex_personal_user}
+               if (rex_login_accounts | length) == 0 and (rex_login_principals | length) == 1
+               else {}) }}
+
+- name: Create the login server drop-in directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/rex-login-server.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install the login server drop-in
+  become: true
+  ansible.builtin.template:
+    src: rex-login-server.override.conf.j2
+    dest: /etc/systemd/system/rex-login-server.service.d/override.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart rex-login-server
+
+- name: Install the accounts file
+  become: true
+  ansible.builtin.template:
+    src: accounts.jsonc.j2
+    dest: /etc/rex/accounts.jsonc
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload rex-login-server accounts
+
+- name: Enable the login server
+  when: not ansible_check_mode
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex-login-server.service
+    enabled: true
+    state: started
+    daemon_reload: true

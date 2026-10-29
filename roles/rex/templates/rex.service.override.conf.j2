@@ -1,0 +1,8 @@
+[Unit]
+After=tailscaled.service
+Wants=tailscaled.service
+
+[Service]
+ExecStart=
+ExecStart=/usr/bin/rex server run \
+  {{ rex_server_flags | join(' \\\n  ') }}

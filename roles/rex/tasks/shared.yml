@@ -1,0 +1,41 @@
+---
+- name: Give the shared account a login shell
+  become: true
+  ansible.builtin.user:
+    name: rex
+    shell: "{{ rex_shared_shell }}"
+
+- name: Stop the login server
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex-login-server.service
+    enabled: false
+    state: stopped
+
+- name: Create the shared server drop-in directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/rex.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install the shared server drop-in
+  become: true
+  ansible.builtin.template:
+    src: rex.service.override.conf.j2
+    dest: /etc/systemd/system/rex.service.d/override.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart rex system
+
+- name: Enable the shared server
+  when: not ansible_check_mode
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex.service
+    enabled: true
+    state: started
+    daemon_reload: true

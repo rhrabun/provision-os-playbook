@@ -1,0 +1,36 @@
+---
+- name: Restart rex system
+  when: not ansible_check_mode
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex.service
+    state: restarted
+    daemon_reload: true
+
+- name: Restart rex-login-server
+  when: not ansible_check_mode
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex-login-server.service
+    state: restarted
+    daemon_reload: true
+
+- name: Reload rex-login-server accounts
+  when: not ansible_check_mode
+  become: true
+  ansible.builtin.systemd_service:
+    name: rex-login-server.service
+    state: reloaded
+
+- name: Restart rex user
+  when: not ansible_check_mode
+  become: true
+  become_user: "{{ rex_personal_user }}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ rex_user_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ rex_user_uid }}/bus"
+  ansible.builtin.systemd_service:
+    name: rex.service
+    scope: user
+    state: restarted
+    daemon_reload: true

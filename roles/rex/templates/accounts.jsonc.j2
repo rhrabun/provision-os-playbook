@@ -1,0 +1,7 @@
+// Managed by provision-os-playbook. Set rex_login_principals or
+// rex_login_accounts in inventory.yml to change it.
+{
+  "version": 1,
+  "accounts": {{ rex_login_accounts_file | to_nice_json(indent=2) | indent(2) }},
+  "defaults": {{ rex_login_defaults_file | to_nice_json(indent=2) | indent(2) }},
+}

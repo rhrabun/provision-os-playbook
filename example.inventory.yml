@@ -14,6 +14,9 @@ all:
       vars:
         profile: server
         software_update_all: false
+        # rex_mode: personal # personal, shared, login, or none
+        # rex_login_principals: # login mode only; keep real identities in inventory.yml
+        #   - "tailscale:alice@example.com"
       hosts:
         first-server:
           ansible_host: <ip>

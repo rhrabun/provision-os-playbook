@@ -1,0 +1,13 @@
+[Unit]
+After=tailscaled.service
+Wants=tailscaled.service
+
+[Service]
+ExecStart=
+ExecStart=/usr/bin/rex login-server \
+  --listen unix:///run/rex/login-server.sock \
+  --accounts /etc/rex/accounts.jsonc \
+  --runtime-root /run/rex \
+  --log-format text \
+  --pam-service rex-login-server \
+  {{ rex_login_server_flags | join(' \\\n  ') }}

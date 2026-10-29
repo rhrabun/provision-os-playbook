@@ -1,0 +1,57 @@
+---
+- name: Read the personal user
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ rex_personal_user }}"
+
+- name: Remember the personal user's ID and home
+  ansible.builtin.set_fact:
+    rex_user_uid: "{{ ansible_facts['getent_passwd'][rex_personal_user][1] }}"
+    rex_user_home: "{{ ansible_facts['getent_passwd'][rex_personal_user][4] }}"
+
+- name: Keep the user manager running after logout
+  become: true
+  ansible.builtin.command:
+    cmd: loginctl enable-linger {{ rex_personal_user }}
+    creates: /var/lib/systemd/linger/{{ rex_personal_user }}
+
+- name: Stop the system-wide Rex services
+  become: true
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: false
+    state: stopped
+  loop:
+    - rex.service
+    - rex-login-server.service
+
+- name: Create the user unit directory
+  ansible.builtin.file:
+    path: "{{ rex_user_home }}/.config/systemd/user"
+    state: directory
+    owner: "{{ rex_personal_user }}"
+    group: "{{ rex_personal_user }}"
+    mode: "0755"
+
+- name: Install the personal server unit
+  ansible.builtin.template:
+    src: rex.user.service.j2
+    dest: "{{ rex_user_home }}/.config/systemd/user/rex.service"
+    owner: "{{ rex_personal_user }}"
+    group: "{{ rex_personal_user }}"
+    mode: "0644"
+  notify: Restart rex user
+
+- name: Enable the personal server
+  when: not ansible_check_mode
+  become: true
+  become_user: "{{ rex_personal_user }}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ rex_user_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ rex_user_uid }}/bus"
+  ansible.builtin.systemd_service:
+    name: rex.service
+    scope: user
+    enabled: true
+    state: started
+    daemon_reload: true
