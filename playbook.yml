@@ -74,9 +74,8 @@
       when: profile == 'server'
       tags: hardening
 
-    - role: terminal
-      when: profile in ['personal', 'dev']
-      tags: terminal
+    - role: shell
+      tags: shell
 
   tasks:
     - name: Create code directory

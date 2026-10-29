@@ -1,0 +1,4 @@
+---
+- name: Configure the deploy user's shell
+  ansible.builtin.include_tasks: zsh.yml
+  when: profile in ['personal', 'dev']
