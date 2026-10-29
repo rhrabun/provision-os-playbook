@@ -13,7 +13,6 @@ brew_formulae:
   - btop
   - tlrc
   - rsync
-  - herdr
   - zellij
   - httpie
   - zoxide
