@@ -25,18 +25,36 @@
     - rex.service
     - rex-login-server.service
 
-- name: Create the user unit directory
+- name: Look for the packaged user unit
+  ansible.builtin.stat:
+    path: /usr/lib/systemd/user/rex.service
+  register: rex_user_unit
+
+- name: Require a Rex package that ships user units
+  ansible.builtin.assert:
+    that:
+      - rex_user_unit.stat.exists
+    fail_msg: >-
+      /usr/lib/systemd/user/rex.service is missing; upgrade rex to
+      0.1.0-preview.13 or newer.
+
+- name: Remove the old hand-written unit
   ansible.builtin.file:
-    path: "{{ rex_user_home }}/.config/systemd/user"
+    path: "{{ rex_user_home }}/.config/systemd/user/rex.service"
+    state: absent
+
+- name: Create the user drop-in directory
+  ansible.builtin.file:
+    path: "{{ rex_user_home }}/.config/systemd/user/rex.service.d"
     state: directory
     owner: "{{ rex_personal_user }}"
     group: "{{ rex_personal_user }}"
     mode: "0755"
 
-- name: Install the personal server unit
+- name: Install the personal server drop-in
   ansible.builtin.template:
-    src: rex.user.service.j2
-    dest: "{{ rex_user_home }}/.config/systemd/user/rex.service"
+    src: rex.user.service.override.conf.j2
+    dest: "{{ rex_user_home }}/.config/systemd/user/rex.service.d/override.conf"
     owner: "{{ rex_personal_user }}"
     group: "{{ rex_personal_user }}"
     mode: "0644"

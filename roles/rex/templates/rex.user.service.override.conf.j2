@@ -1,0 +1,5 @@
+[Service]
+ExecStart=
+ExecStart=/usr/bin/rex server run {{ rex_server_flags | join(' \\\n  ') }}
+Restart=on-failure
+RestartSec=5
