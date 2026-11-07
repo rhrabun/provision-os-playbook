@@ -33,6 +33,7 @@ dev_gui_packages_pacman:
   - code
   - bitwarden
   - proton-vpn-gtk-app
-  - zen-browser-bin
+  - helium-browser-bin
+  - ghostty
   - inter-font
   - ttf-firacode-nerd
