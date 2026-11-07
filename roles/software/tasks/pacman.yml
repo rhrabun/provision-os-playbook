@@ -20,8 +20,3 @@
   community.general.pacman:
     name: "{{ dev_gui_packages + dev_gui_packages_pacman }}"
     state: present
-
-- name: Remove unneeded dependencies
-  become: true
-  community.general.pacman:
-    autoremove: true
