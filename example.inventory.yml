@@ -1,8 +1,6 @@
 all:
   children:
     local:
-      vars:
-        software_update_all: true
       hosts:
         current:
           ansible_host: localhost
@@ -13,7 +11,6 @@ all:
     servers:
       vars:
         profile: server
-        software_update_all: false
         # rex_mode: personal # personal, shared, login, or none
         # rex_login_principals: # login mode only; keep real identities in inventory.yml
         #   - "tailscale:alice@example.com"
