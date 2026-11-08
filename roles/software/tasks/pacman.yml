@@ -1,7 +1,8 @@
-- name: Update package database
+- name: Upgrade system
   become: true
   community.general.pacman:
     update_cache: true
+    upgrade: true
 
 - name: Install CLI packages
   become: true

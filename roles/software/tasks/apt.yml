@@ -1,14 +1,9 @@
-- name: Update repos
-  become: true
-  ansible.builtin.apt:
-    update_cache: true
-
 - name: Upgrade system
   become: true
   ansible.builtin.apt:
+    update_cache: true
     name: "*"
     state: latest
-  when: software_update_all | default(false)
 
 - name: Install CLI packages
   become: true
