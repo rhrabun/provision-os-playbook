@@ -41,7 +41,6 @@ brew_casks_personal:
   - anydesk
   - calibre
   - spotify
-  - music-decoy
   - homerow
   - flux-app
   - obsidian
@@ -54,6 +53,7 @@ brew_casks_personal:
   - cryptomator
   - todoist-app
   - bettermouse
+  - music-decoy
   - proton-mail
   - proton-pass
   - proton-drive
