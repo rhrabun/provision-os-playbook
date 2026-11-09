@@ -41,6 +41,7 @@ brew_casks_personal:
   - anydesk
   - calibre
   - spotify
+  - music-decoy
   - homerow
   - flux-app
   - obsidian
