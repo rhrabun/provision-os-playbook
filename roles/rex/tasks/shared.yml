@@ -8,9 +8,12 @@
 - name: Stop the login server
   become: true
   ansible.builtin.systemd_service:
-    name: rex-login-server.service
+    name: "{{ item }}"
     enabled: false
     state: stopped
+  loop:
+    - rex-login-server.service
+    - rex-login-server.socket
 
 - name: Create the shared server drop-in directory
   become: true

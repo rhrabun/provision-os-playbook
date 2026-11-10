@@ -15,7 +15,7 @@
     cmd: loginctl enable-linger {{ rex_personal_user }}
     creates: /var/lib/systemd/linger/{{ rex_personal_user }}
 
-- name: Stop the system-wide Rex services
+- name: Stop the system-wide Rex units
   become: true
   ansible.builtin.systemd_service:
     name: "{{ item }}"
@@ -23,7 +23,9 @@
     state: stopped
   loop:
     - rex.service
+    - rex.socket
     - rex-login-server.service
+    - rex-login-server.socket
 
 - name: Look for the packaged user unit
   ansible.builtin.stat:

@@ -2,9 +2,12 @@
 - name: Stop the shared server
   become: true
   ansible.builtin.systemd_service:
-    name: rex.service
+    name: "{{ item }}"
     enabled: false
     state: stopped
+  loop:
+    - rex.service
+    - rex.socket
 
 - name: Require login accounts
   ansible.builtin.assert:
