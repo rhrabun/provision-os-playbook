@@ -9,11 +9,20 @@
     rex_user_uid: "{{ ansible_facts['getent_passwd'][rex_personal_user][1] }}"
     rex_user_home: "{{ ansible_facts['getent_passwd'][rex_personal_user][4] }}"
 
-- name: Keep the user manager running after logout
-  become: true
+- name: Read the Rex CLI commands
   ansible.builtin.command:
-    cmd: loginctl enable-linger {{ rex_personal_user }}
-    creates: /var/lib/systemd/linger/{{ rex_personal_user }}
+    cmd: /usr/bin/rex server --help
+  register: rex_server_help
+  changed_when: false
+  check_mode: false
+
+- name: Require a Rex CLI with server install
+  ansible.builtin.assert:
+    that:
+      - "'install' in rex_server_help.stdout"
+    fail_msg: >-
+      rex server install is missing; upgrade rex to
+      0.1.0-preview.14 or newer.
 
 - name: Stop the system-wide Rex units
   become: true
@@ -27,18 +36,23 @@
     - rex-login-server.service
     - rex-login-server.socket
 
-- name: Look for the packaged user unit
+- name: Look for the previous personal service
   ansible.builtin.stat:
-    path: /usr/lib/systemd/user/rex.service
-  register: rex_user_unit
+    path: "{{ rex_user_home }}/.config/systemd/user/default.target.wants/rex.service"
+  register: rex_personal_service
 
-- name: Require a Rex package that ships user units
-  ansible.builtin.assert:
-    that:
-      - rex_user_unit.stat.exists
-    fail_msg: >-
-      /usr/lib/systemd/user/rex.service is missing; upgrade rex to
-      0.1.0-preview.13 or newer.
+- name: Stop the previous personal service
+  when: rex_personal_service.stat.exists
+  become: true
+  become_user: "{{ rex_personal_user }}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ rex_user_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ rex_user_uid }}/bus"
+  ansible.builtin.systemd_service:
+    name: rex.service
+    scope: user
+    enabled: false
+    state: stopped
 
 - name: Remove the old hand-written unit
   ansible.builtin.file:
@@ -60,18 +74,17 @@
     owner: "{{ rex_personal_user }}"
     group: "{{ rex_personal_user }}"
     mode: "0644"
-  notify: Restart rex user
+  notify:
+    - Stop the personal server
+    - Restart rex user
 
-- name: Enable the personal server
+- name: Start the personal server at boot
   when: not ansible_check_mode
   become: true
   become_user: "{{ rex_personal_user }}"
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ rex_user_uid }}"
     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ rex_user_uid }}/bus"
-  ansible.builtin.systemd_service:
-    name: rex.service
-    scope: user
-    enabled: true
-    state: started
-    daemon_reload: true
+  ansible.builtin.command:
+    cmd: /usr/bin/rex server install
+  changed_when: false

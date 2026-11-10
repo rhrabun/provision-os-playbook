@@ -22,6 +22,21 @@
     name: rex-login-server.service
     state: reloaded
 
+- name: Stop the personal server
+  when: not ansible_check_mode
+  become: true
+  become_user: "{{ rex_personal_user }}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ rex_user_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ rex_user_uid }}/bus"
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    scope: user
+    state: stopped
+  loop:
+    - rex.socket
+    - rex.service
+
 - name: Restart rex user
   when: not ansible_check_mode
   become: true
@@ -30,7 +45,7 @@
     XDG_RUNTIME_DIR: "/run/user/{{ rex_user_uid }}"
     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ rex_user_uid }}/bus"
   ansible.builtin.systemd_service:
-    name: rex.service
+    name: rex.socket
     scope: user
-    state: restarted
+    state: started
     daemon_reload: true
